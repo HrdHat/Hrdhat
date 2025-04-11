@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import "./AppShell.css";
 
 type AppShellProps = {
   children: ReactNode;
