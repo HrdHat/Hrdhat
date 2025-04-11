@@ -1,4 +1,3 @@
-import * as React from "react";
 import GeneralInformation from "../components/generalinformation";
 
 const FLRAFormPage = () => {
