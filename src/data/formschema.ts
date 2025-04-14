@@ -21,3 +21,25 @@ export const flraChecklistQuestions: string[] = [
   "Do you know who the designated first aid attendant is today?",
   "Are you aware of any specific site notices or bulletins today?",
 ];
+export const ppeItems = [
+  "Hardhat",
+  "Safety Vest",
+  "Safety Glasses",
+  "Fall Protection",
+  "Coveralls",
+  "Gloves",
+  "Mask",
+  "Respirator",
+];
+
+export const platformItems = [
+  "Ladder",
+  "Step Bench / Work Bench",
+  "Sawhorses",
+  "Baker Scaffold",
+  "Scaffold",
+  "Scissor Lift",
+  "Boom Lift",
+  "Swing Stage",
+  "Hydro Lift",
+];
