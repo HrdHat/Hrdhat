@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppShell from "./layout/appshell";
 import HomePage from "./pages/homepage";
 import FLRAFormPage from "./pages/flraformpage";
+import FLRASelectView from "./pages/flraselectview";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <AppShell>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/select-view" element={<FLRASelectView />} />
           <Route path="/flra" element={<FLRAFormPage />} />
         </Routes>
       </AppShell>
