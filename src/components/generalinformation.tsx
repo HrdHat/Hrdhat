@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GeneralInfoData } from "../types/generalInfo";
+import { GeneralInfoData } from "../../types/generalInfo";
 
 const GeneralInformation: React.FC = () => {
   const [formData, setFormData] = useState<GeneralInfoData>({
