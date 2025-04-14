@@ -8,6 +8,18 @@ interface Entry {
   control: string;
   controlRisk: number;
 }
+const riskColors: { [key: number]: string } = {
+  1: "#00e676", // bright green
+  2: "#66bb6a",
+  3: "#cddc39",
+  4: "#ffeb3b",
+  5: "#ffc107",
+  6: "#ff9800",
+  7: "#ff5722",
+  8: "#f44336",
+  9: "#e53935",
+  10: "#b71c1c", // deep red
+};
 
 const THCModule: React.FC = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
@@ -64,6 +76,10 @@ const THCModule: React.FC = () => {
                 className="risk-select"
                 value={hazardRisk}
                 onChange={(e) => setHazardRisk(parseInt(e.target.value))}
+                style={{
+                  backgroundColor: riskColors[hazardRisk],
+                  color: "#fff",
+                }}
               >
                 {[...Array(10)].map((_, i) => (
                   <option key={i} value={i + 1}>
@@ -85,6 +101,10 @@ const THCModule: React.FC = () => {
                 className="risk-select"
                 value={controlRisk}
                 onChange={(e) => setControlRisk(parseInt(e.target.value))}
+                style={{
+                  backgroundColor: riskColors[controlRisk],
+                  color: "#fff",
+                }}
               >
                 {[...Array(10)].map((_, i) => (
                   <option key={i} value={i + 1}>
