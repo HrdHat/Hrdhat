@@ -1,0 +1,261 @@
+/* ====== BASE STYLING FOR MODULES ====== */
+
+.module-box {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 8px;
+  max-width: 900px;
+  font-family: "Roboto", sans-serif;
+  color: #000;
+}
+
+.module-label {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid #000;
+  padding-bottom: 0.5rem;
+}
+
+/* ====== ZOOMED VIEW ====== */
+.zoomed-view .single-question-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.zoomed-view .single-question-screen label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.zoomed-view .single-question-screen input {
+  font-size: 16px;
+  font-family: "Tekton", sans-serif;
+  padding: 0.6rem 1rem;
+  border: 2px solid #000;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* ====== MID VIEW ====== */
+.mid-view .two-column-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mid-view .two-column-form label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mid-view .two-column-form input {
+  font-size: 13px;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #aaa;
+  font-family: "Tekton", sans-serif;
+  border-radius: 4px;
+}
+
+/* ====== PRINT VIEW ====== */
+.print-view .print-columns {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2rem;
+  row-gap: 1.25rem;
+}
+
+.print-view .print-columns label {
+  font-size: 12px;
+}
+
+.print-view .print-columns input {
+  font-size: 12px;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #888;
+  font-family: "Tekton", sans-serif;
+  border-radius: 3px;
+}
+/* ZOOMED VIEW STYLING */
+.zoomed-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+.zoomed-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  gap: 1.2rem;
+}
+
+.zoomed-field label {
+  font-weight: bold;
+  font-size: 1.3rem;
+  text-align: left;
+}
+
+.zoomed-field input {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.zoomed-nav {
+  margin-top: 2rem;
+}
+
+.zoomed-nav button {
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #2cb75c;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.zoomed-nav button:hover:enabled {
+  background-color: #28a352;
+}
+
+.zoomed-nav button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.mid-view input {
+  font-size: 14px;
+  padding: 0.5rem;
+}
+
+.full-view input {
+  font-size: 12px;
+  padding: 0.25rem;
+  border: none;
+  background: transparent;
+}
+.mid-view .two-column-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mid-view .two-column-form label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.mid-view .two-column-form input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.pdf-style-box {
+  border: 3px solid black;
+  padding: 2.5rem 1rem 1rem; /* extra top padding */
+  border-radius: 8px;
+  margin: 2rem auto;
+  position: relative;
+  background-color: white;
+  width: 100%;
+  max-width: 700px; /* limit width for nice centering */
+  box-sizing: border-box;
+}
+
+.pdf-label {
+  position: absolute;
+  top: -1rem;
+  left: 1rem;
+  background: white;
+  padding: 0 0.6rem;
+  font-weight: bold;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.pdf-two-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* ⬅️ Controls spacing between label and input */
+  margin-bottom: 1rem;
+}
+
+.field-row label {
+  width: 200px; /* ✅ Fixed width for better control */
+  text-align: left;
+  font-weight: bold;
+}
+
+.field-row input {
+  flex: 1; /* Let input grow to fill space */
+  padding: 0.5rem;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.form-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.module-box.mid-view {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.module-content {
+  position: relative;
+  border: 3px solid black;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 700px;
+  background: white;
+}
+
+/* Center module-label above the border */
+
+.module-label {
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  background: white;
+  padding: 0 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+.form-carousel {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f5f5f5;
+}

@@ -8,13 +8,7 @@ type AppShellProps = {
 const AppShell = ({ children }: AppShellProps) => {
   return (
     <div className="app-shell">
-      <header className="app-header">
-        <h1>🛠️ HRDHat</h1>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/flra">FLRA Form</Link>
-        </nav>
-      </header>
+      <header className="app-header"></header>
       <main className="app-content">{children}</main>
     </div>
   );
