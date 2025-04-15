@@ -1,4 +1,4 @@
-/* ====== GLOBAL STYLES ====== */
+/* ====== GLOBAL BASE ====== */
 
 body {
   display: flex;
@@ -10,45 +10,49 @@ body {
 }
 
 input,
-label,
 button {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   font-size: 1rem;
 }
 
-/* ====== MODULE WRAPPERS ====== */
+label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* ====== MODULE WRAPPER ====== */
 
 .module-box {
+  width: 90%;
+  max-width: 600px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background: #fff;
   border: 1px solid #000;
   border-radius: 8px;
-  max-width: 900px;
+  background: white;
 }
 
 .module-box.mid-view {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
 }
 
 .module-content {
+  width: 100%;
+  max-width: 600px;
+  padding: 1.5rem;
   position: relative;
-  border: 3px solid black;
-  border-radius: 8px;
-  padding: 2rem;
-  width: 700px;
-  background: white;
+  box-sizing: border-box;
 }
 
-/* Label floating above box */
 .module-label {
   position: absolute;
   top: -14px;
   left: 20px;
   background: white;
   padding: 0 10px;
-  font-weight: bold;
   font-size: 16px;
   text-transform: uppercase;
 }
@@ -65,7 +69,6 @@ button {
 .field-row label {
   width: 200px;
   text-align: left;
-  font-weight: bold;
 }
 
 .field-row input {
@@ -96,17 +99,14 @@ button {
 }
 
 .zoomed-field label {
-  font-weight: bold;
   font-size: 1.3rem;
   text-align: left;
 }
 
 .zoomed-field input {
   padding: 0.75rem 1rem;
-  font-size: 1rem;
   border: 2px solid #ccc;
   border-radius: 6px;
-  width: 100%;
 }
 
 .zoomed-nav {
@@ -141,13 +141,7 @@ button {
   gap: 0.75rem;
 }
 
-.mid-view .two-column-form label {
-  font-weight: bold;
-  margin-bottom: 0.25rem;
-}
-
 .mid-view .two-column-form input {
-  width: 100%;
   padding: 0.5rem;
   font-size: 1rem;
   font-family: "Tekton", sans-serif;
@@ -164,30 +158,30 @@ button {
   row-gap: 1.25rem;
 }
 
-.print-view .print-columns label {
+.print-view label,
+.print-view input {
   font-size: 12px;
 }
 
-.print-view .print-columns input {
-  font-size: 12px;
+.print-view input {
   padding: 0.3rem 0.5rem;
   border: 1px solid #888;
   font-family: "Tekton", sans-serif;
   border-radius: 3px;
 }
 
-/* ====== PDF PREVIEW BOXES ====== */
+/* ====== PDF OUTPUT STYLES ====== */
 
 .pdf-style-box {
   border: 3px solid black;
   padding: 2.5rem 1rem 1rem;
   border-radius: 8px;
   margin: 2rem auto;
-  position: relative;
   background-color: white;
   width: 100%;
   max-width: 700px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .pdf-label {
@@ -196,7 +190,6 @@ button {
   left: 1rem;
   background: white;
   padding: 0 0.6rem;
-  font-weight: bold;
   font-size: 0.85rem;
   text-transform: uppercase;
 }
@@ -207,7 +200,7 @@ button {
   gap: 1rem;
 }
 
-/* ====== FORM NAV / CAROUSEL ====== */
+/* ====== FORM NAVIGATION / CAROUSEL ====== */
 
 .form-carousel {
   display: flex;
@@ -216,7 +209,7 @@ button {
   min-height: 80vh;
 }
 
-/* ====== MOBILE RESPONSIVE ====== */
+/* ====== MOBILE RESPONSIVE BREAKPOINT ====== */
 
 @media (max-width: 600px) {
   .module-box,
@@ -232,23 +225,29 @@ button {
 
   .field-row label {
     width: 100%;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
   }
 
   .field-row input {
     width: 100%;
   }
 
-  .module-label {
-    font-size: 1.1rem;
-    left: 10px;
-  }
-
-  .zoomed-field input {
-    font-size: 1rem;
+  .zoomed-field {
+    padding: 1rem;
   }
 
   .zoomed-nav button {
     width: 100%;
+    margin-top: 1rem;
+  }
+
+  .form-toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .module-label {
+    font-size: 1.1rem;
+    left: 10px;
   }
 }
