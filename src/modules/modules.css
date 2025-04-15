@@ -251,3 +251,13 @@ label {
     left: 10px;
   }
 }
+/* Force all input fields to have white background in Zoomed View */
+.zoomed-view input,
+.zoomed-field input,
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="number"] {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}

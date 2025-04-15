@@ -7,7 +7,7 @@ import FlraChecklist from "../components/flrachecklist";
 import PPEPlatformInspection from "../components/ppeplatforminspection";
 import THCModule from "../components/thcmodule";
 import MidViewNavigator from "../components/midviewnavigator"; // ✅ Add this!
-
+import ZoomedMode from "../modules/zoomedmode"; // ✅ Add this!
 type ViewMode = "zoomed" | "mid" | "full";
 
 const FLRAFormPage = () => {
@@ -36,12 +36,13 @@ const FLRAFormPage = () => {
       />
 
       {/* 🔄 Zoomed and Full View – All modules at once */}
-      {(view === "zoomed" || view === "full") && (
+      {view === "zoomed" && <ZoomedMode />}
+      {view === "full" && (
         <div>
-          <GeneralInformation view={view} />
-          <FlraChecklist view={view} />
-          <PPEPlatformInspection view={view} />
-          <THCModule view={view} />
+          <GeneralInformation view="full" />
+          <FlraChecklist view="full" />
+          <PPEPlatformInspection view="full" />
+          <THCModule view="full" />
         </div>
       )}
 
