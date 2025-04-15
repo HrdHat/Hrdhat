@@ -1,4 +1,21 @@
-/* ====== BASE STYLING FOR MODULES ====== */
+/* ====== GLOBAL STYLES ====== */
+
+body {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  font-family: "Roboto", sans-serif;
+  color: #000;
+}
+
+input,
+label,
+button {
+  font-size: 1rem;
+}
+
+/* ====== MODULE WRAPPERS ====== */
 
 .module-box {
   margin: 2rem auto;
@@ -7,83 +24,60 @@
   border: 1px solid #000;
   border-radius: 8px;
   max-width: 900px;
-  font-family: "Roboto", sans-serif;
-  color: #000;
 }
 
+.module-box.mid-view {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.module-content {
+  position: relative;
+  border: 3px solid black;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 700px;
+  background: white;
+}
+
+/* Label floating above box */
 .module-label {
-  display: block;
-  font-size: 20px;
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  background: white;
+  padding: 0 10px;
   font-weight: bold;
-  margin-bottom: 1.25rem;
-  border-bottom: 2px solid #000;
-  padding-bottom: 0.5rem;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+/* ====== FIELD STRUCTURE ====== */
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.field-row label {
+  width: 200px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.field-row input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 /* ====== ZOOMED VIEW ====== */
-.zoomed-view .single-question-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2.5rem;
-}
 
-.zoomed-view .single-question-screen label {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.zoomed-view .single-question-screen input {
-  font-size: 16px;
-  font-family: "Tekton", sans-serif;
-  padding: 0.6rem 1rem;
-  border: 2px solid #000;
-  border-radius: 6px;
-  width: 100%;
-  max-width: 400px;
-}
-
-/* ====== MID VIEW ====== */
-.mid-view .two-column-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.mid-view .two-column-form label {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.mid-view .two-column-form input {
-  font-size: 13px;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid #aaa;
-  font-family: "Tekton", sans-serif;
-  border-radius: 4px;
-}
-
-/* ====== PRINT VIEW ====== */
-.print-view .print-columns {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 2rem;
-  row-gap: 1.25rem;
-}
-
-.print-view .print-columns label {
-  font-size: 12px;
-}
-
-.print-view .print-columns input {
-  font-size: 12px;
-  padding: 0.3rem 0.5rem;
-  border: 1px solid #888;
-  font-family: "Tekton", sans-serif;
-  border-radius: 3px;
-}
-/* ZOOMED VIEW STYLING */
 .zoomed-view {
   display: flex;
   flex-direction: column;
@@ -91,7 +85,6 @@
   justify-content: center;
   min-height: 70vh;
   padding: 2rem;
-  font-size: 1.1rem;
 }
 
 .zoomed-field {
@@ -140,17 +133,8 @@
   cursor: not-allowed;
 }
 
-.mid-view input {
-  font-size: 14px;
-  padding: 0.5rem;
-}
+/* ====== MID VIEW ====== */
 
-.full-view input {
-  font-size: 12px;
-  padding: 0.25rem;
-  border: none;
-  background: transparent;
-}
 .mid-view .two-column-form {
   display: flex;
   flex-direction: column;
@@ -166,16 +150,43 @@
   width: 100%;
   padding: 0.5rem;
   font-size: 1rem;
+  font-family: "Tekton", sans-serif;
+  border-radius: 4px;
+  border: 1px solid #aaa;
 }
+
+/* ====== FULL / PRINT VIEW ====== */
+
+.print-view .print-columns {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2rem;
+  row-gap: 1.25rem;
+}
+
+.print-view .print-columns label {
+  font-size: 12px;
+}
+
+.print-view .print-columns input {
+  font-size: 12px;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #888;
+  font-family: "Tekton", sans-serif;
+  border-radius: 3px;
+}
+
+/* ====== PDF PREVIEW BOXES ====== */
+
 .pdf-style-box {
   border: 3px solid black;
-  padding: 2.5rem 1rem 1rem; /* extra top padding */
+  padding: 2.5rem 1rem 1rem;
   border-radius: 8px;
   margin: 2rem auto;
   position: relative;
   background-color: white;
   width: 100%;
-  max-width: 700px; /* limit width for nice centering */
+  max-width: 700px;
   box-sizing: border-box;
 }
 
@@ -196,66 +207,48 @@
   gap: 1rem;
 }
 
-.field-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem; /* ⬅️ Controls spacing between label and input */
-  margin-bottom: 1rem;
-}
+/* ====== FORM NAV / CAROUSEL ====== */
 
-.field-row label {
-  width: 200px; /* ✅ Fixed width for better control */
-  text-align: left;
-  font-weight: bold;
-}
-
-.field-row input {
-  flex: 1; /* Let input grow to fill space */
-  padding: 0.5rem;
-  font-size: 14px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
 .form-carousel {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.module-box.mid-view {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.module-content {
-  position: relative;
-  border: 3px solid black;
-  border-radius: 8px;
-  padding: 2rem;
-  width: 700px;
-  background: white;
-}
-
-/* Center module-label above the border */
-
-.module-label {
-  position: absolute;
-  top: -14px;
-  left: 20px;
-  background: white;
-  padding: 0 10px;
-  font-weight: bold;
-  font-size: 16px;
-}
-.form-carousel {
   min-height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-body {
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-  background-color: #f5f5f5;
+
+/* ====== MOBILE RESPONSIVE ====== */
+
+@media (max-width: 600px) {
+  .module-box,
+  .module-content {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .field-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .field-row label {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+  .field-row input {
+    width: 100%;
+  }
+
+  .module-label {
+    font-size: 1.1rem;
+    left: 10px;
+  }
+
+  .zoomed-field input {
+    font-size: 1rem;
+  }
+
+  .zoomed-nav button {
+    width: 100%;
+  }
 }
