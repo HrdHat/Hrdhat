@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
+import "../modules/modules.css"; // Make sure the CSS is applied
 
 const HomePage = () => {
   return (
-    <div className="home-page">
-      <h1>Welcome to HRDHat</h1>
-      <p>Start your daily FLRA checklist below.</p>
-
-      <Link to="/flra" className="start-flra-button">
-        📝 Start New FLRA
-      </Link>
+    <div>
+      <div className="home-button-container">
+        <Link to="/flra" className="start-flra-button">
+          📝 Start new FLRA form
+        </Link>
+        <Link to="/saved" className="home-button">
+          📂 View Saved Forms
+        </Link>
+        <Link to="/settings" className="home-button">
+          ⚙️ Account Settings
+        </Link>
+      </div>
     </div>
   );
 };

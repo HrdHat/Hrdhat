@@ -6,8 +6,8 @@ import GeneralInformation from "../components/generalinformation";
 import FlraChecklist from "../components/flrachecklist";
 import PPEPlatformInspection from "../components/ppeplatforminspection";
 import THCModule from "../components/thcmodule";
-import MidViewNavigator from "../components/midviewnavigator"; // ✅ Add this!
-import ZoomedMode from "../modules/zoomedmode"; // ✅ Add this!
+import MidMode from "../modules/midmode"; // ✅ Add this!
+import ZoomedMode from "../modules/zoomedmode";
 type ViewMode = "zoomed" | "mid" | "full";
 
 const FLRAFormPage = () => {
@@ -47,7 +47,7 @@ const FLRAFormPage = () => {
       )}
 
       {/* 🔄 Mid View – One module at a time */}
-      {view === "mid" && <MidViewNavigator />}
+      {view === "mid" && <MidMode />}
     </div>
   );
 };
