@@ -1,28 +1,54 @@
 /* ====== GLOBAL BASE ====== */
 
 body {
-  margin: 0;
-  padding: 0;
   background-color: #f9f9f9;
   font-family: "Roboto", sans-serif;
   color: #000;
   box-sizing: border-box;
-  background-image: repeating-linear-gradient(
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #0b0c10;
+  background-image: radial-gradient(
+      circle at top center,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
       0deg,
-      #9ea5a3 0,
-      #9ea5a3 1px,
+      #2c2f36 0px,
+      #2c2f36 1px,
       transparent 1px,
-      transparent 20px
+      transparent 40px
     ),
     repeating-linear-gradient(
       90deg,
-      #9ea5a3 0,
-      #9ea5a3 1px,
+      #2c2f36 0px,
+      #2c2f36 1px,
       transparent 1px,
-      transparent 20px
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #44474e 0px,
+      #44474e 2px,
+      transparent 2px,
+      transparent 160px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #44474e 0px,
+      #44474e 2px,
+      transparent 2px,
+      transparent 160px
     );
-  background-size: 20px 20px;
-  background-color: #1d1f27;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center top;
+  color: white;
+  font-family: sans-serif;
+  display: flex;
 }
 .home-page-wrapper {
   display: flex;
