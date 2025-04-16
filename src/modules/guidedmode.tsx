@@ -3,15 +3,16 @@ import GeneralInformation from "../components/generalinformation";
 import FlraChecklist from "../components/flrachecklist";
 import PPEPlatformInspection from "../components/ppeplatforminspection";
 import THCModule from "../components/thcmodule";
+import { ViewMode } from "../types/viewmode";
 
 const modules = [
-  { id: "general", component: <GeneralInformation view="zoomed" /> },
-  { id: "checklist", component: <FlraChecklist view="zoomed" /> },
-  { id: "ppe", component: <PPEPlatformInspection view="zoomed" /> },
-  { id: "thc", component: <THCModule view="zoomed" /> },
+  { id: "general", component: <GeneralInformation view="guided" /> },
+  { id: "checklist", component: <FlraChecklist view="guided" /> },
+  { id: "ppe", component: <PPEPlatformInspection view="guided" /> },
+  { id: "thc", component: <THCModule view="guided" /> },
 ];
 
-const ZoomedMode = () => {
+const GuidedMode = () => {
   const [current, setCurrent] = useState(0);
 
   const goNext = () => {
@@ -37,4 +38,4 @@ const ZoomedMode = () => {
   );
 };
 
-export default ZoomedMode;
+export default GuidedMode;

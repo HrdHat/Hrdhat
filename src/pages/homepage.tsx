@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import Sidebar from "../components/sidebar";
-import FlraSelectView from "./flraselectview";
+import FlraSelectView from "../components/flraselectview";
 import FlraFormPage from "./flraformpage";
+import { ViewMode } from "../types/viewmode";
 import "../App.css";
 
 const HomePage = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [viewMode, setViewMode] = useState<"zoomed" | "mid" | "full" | null>(
-    null
-  );
+  const [viewMode, setViewMode] = useState<ViewMode | null>(null);
 
   const handleCreateForm = () => {
     setShowSidebar(false);
@@ -22,7 +21,7 @@ const HomePage = () => {
     setTimeout(() => setShowSidebar(true), 300);
   };
 
-  const handleViewSelect = (mode: "zoomed" | "mid" | "full") => {
+  const handleViewSelect = (mode: ViewMode) => {
     setViewMode(mode);
   };
 

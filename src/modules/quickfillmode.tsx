@@ -3,15 +3,16 @@ import GeneralInformation from "../components/generalinformation";
 import FlraChecklist from "../components/flrachecklist";
 import PPEPlatformInspection from "../components/ppeplatforminspection";
 import THCModule from "../components/thcmodule";
+import { ViewMode } from "../types/viewmode";
 
-const MidMode = () => {
+const QuickFillMode = () => {
   const [index, setIndex] = useState(0);
 
   const modules = [
-    <GeneralInformation view="mid" key="general" />,
-    <FlraChecklist view="mid" key="checklist" />,
-    <PPEPlatformInspection view="mid" key="ppe" />,
-    <THCModule view="mid" key="thc" />,
+    <GeneralInformation view="quickfill" key="general" />,
+    <FlraChecklist view="quickfill" key="checklist" />,
+    <PPEPlatformInspection view="quickfill" key="ppe" />,
+    <THCModule view="quickfill" key="thc" />,
   ];
 
   return (
@@ -39,4 +40,4 @@ const MidMode = () => {
   );
 };
 
-export default MidMode;
+export default QuickFillMode;
