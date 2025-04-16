@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import Sidebar from "../components/sidebar";
-import "../App.css"; // Assuming this is where the .app-container and background are now
+import FlraSelectView from "./flraselectview";
+import FlraFormPage from "./flraformpage";
+import "../App.css";
 
 const HomePage = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [viewMode, setViewMode] = useState<"zoomed" | "mid" | "full" | null>(
+    null
+  );
 
   const handleCreateForm = () => {
     setShowSidebar(false);
@@ -12,8 +17,13 @@ const HomePage = () => {
   };
 
   const handleBackToHome = () => {
+    setViewMode(null);
     setShowForm(false);
     setTimeout(() => setShowSidebar(true), 300);
+  };
+
+  const handleViewSelect = (mode: "zoomed" | "mid" | "full") => {
+    setViewMode(mode);
   };
 
   return (
@@ -25,8 +35,12 @@ const HomePage = () => {
           <div className="back-button" onClick={handleBackToHome}>
             ← Back
           </div>
-          <h2>Field Level Risk Assessment</h2>
-          <p>This is your FLRA form...</p>
+
+          {viewMode === null ? (
+            <FlraSelectView onSelect={handleViewSelect} />
+          ) : (
+            <FlraFormPage viewMode={viewMode} />
+          )}
         </div>
       )}
 

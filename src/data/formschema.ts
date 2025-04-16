@@ -1,4 +1,37 @@
 // src/formSchema.ts
+// GeneralInfo field definition type
+
+export interface GeneralInfoData {
+  projectName: string;
+  taskLocation: string;
+  supervisorName: string;
+  supervisorContact: string;
+  todaysDate: string;
+  crewMembers: string;
+  todaysTask: string;
+  startTime: string;
+  endTime: string;
+}
+
+export interface FormField {
+  name: keyof GeneralInfoData;
+  label: string;
+  type: "text" | "date" | "time";
+}
+
+// Centralized field array
+export const generalInfoFields: FormField[] = [
+  { name: "projectName", label: "Project Name", type: "text" },
+  { name: "taskLocation", label: "Task Location", type: "text" },
+  { name: "supervisorName", label: "Supervisor's Name", type: "text" },
+  { name: "supervisorContact", label: "Supervisor's Contact #", type: "text" },
+  { name: "todaysDate", label: "Today's Date", type: "date" },
+  { name: "crewMembers", label: "# of Crew Members", type: "text" },
+  { name: "todaysTask", label: "Today's Task", type: "text" },
+  { name: "startTime", label: "Start Time", type: "time" },
+  { name: "endTime", label: "End Time", type: "time" },
+];
+
 export const flraChecklistQuestions: string[] = [
   "Are you well-rested and fit for duty?",
   "Have you reviewed the work area for hazards?",
