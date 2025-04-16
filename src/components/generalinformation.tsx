@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { GeneralInfoData } from "../../types/generalInfo";
+import { GeneralInfoData } from "../types/generalInfo";
 import { generalInfoFields } from "../data/formschema";
-import "../modules/modules.css";
+import "../styles/modules.css";
+import { FLRASessionManager } from "../utils/flrasessionmanager";
+import { ViewMode } from "../types/viewmode";
 
 interface Props {
-  view: "zoomed" | "mid" | "full";
+  view: ViewMode;
+  draftId: string;
 }
 
-const GeneralInformation: React.FC<Props> = ({ view }) => {
+const GeneralInformation: React.FC<Props> = ({ view, draftId }) => {
   const [formData, setFormData] = useState<GeneralInfoData>(() => {
-    const saved = localStorage.getItem("generalInfo");
-    return saved
-      ? JSON.parse(saved)
-      : generalInfoFields.reduce((acc, field) => {
-          acc[field.name as keyof GeneralInfoData] = "";
-          return acc;
-        }, {} as GeneralInfoData);
+    const draft = FLRASessionManager.loadDraft(draftId);
+    return (
+      draft?.data?.generalInfo ||
+      generalInfoFields.reduce((acc, field) => {
+        acc[field.name as keyof GeneralInfoData] = "";
+        return acc;
+      }, {} as GeneralInfoData)
+    );
   });
 
   useEffect(() => {
-    localStorage.setItem("generalInfo", JSON.stringify(formData));
-  }, [formData]);
+    const draft = FLRASessionManager.loadDraft(draftId);
+    if (draft) {
+      draft.data.generalInfo = formData;
+      FLRASessionManager.saveDraft(draftId, draft);
+    }
+  }, [formData, draftId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,7 +37,7 @@ const GeneralInformation: React.FC<Props> = ({ view }) => {
 
   const [fieldIndex, setFieldIndex] = useState(0);
 
-  if (view === "zoomed") {
+  if (view === "guided") {
     const currentField = generalInfoFields[fieldIndex];
 
     const handleNext = () => {
@@ -75,7 +83,7 @@ const GeneralInformation: React.FC<Props> = ({ view }) => {
     );
   }
 
-  if (view === "mid") {
+  if (view === "quickfill") {
     return (
       <section className={`module-box ${view}-view`}>
         <div className="module-content">
@@ -100,11 +108,24 @@ const GeneralInformation: React.FC<Props> = ({ view }) => {
     );
   }
 
-  if (view === "full") {
+  if (view === "printview") {
     return (
       <section className="module-box print-view">
         <span className="module-label">General Information</span>
-        <div className="print-columns">{/* Full view layout TBD */}</div>
+        <div className="print-columns">
+          {generalInfoFields.map((field) => (
+            <div className="field-row" key={field.name}>
+              <label htmlFor={field.name}>{field.label}</label>
+              <input
+                type={field.type}
+                id={field.name}
+                name={field.name}
+                value={(formData as any)[field.name]}
+                readOnly
+              />
+            </div>
+          ))}
+        </div>
       </section>
     );
   }

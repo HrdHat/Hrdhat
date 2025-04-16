@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./thcmodule.css";
+import "../styles/components.css";
 
 interface Entry {
   task: string;

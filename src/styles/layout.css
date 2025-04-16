@@ -1,9 +1,15 @@
+/* ----------------------------------------
+   LAYOUT STYLES – CONTAINERS & STRUCTURE
+   ---------------------------------------- */
+
+/* App-level container for full-screen layout */
 .app-container {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 
+  /* Visual background grid */
   background-color: #0b0c10;
   background-image: radial-gradient(
       circle at top center,
@@ -44,6 +50,7 @@
   background-position: center;
 }
 
+/* The sliding paper UI that shows the active form */
 .paper-container {
   position: fixed;
   top: 0;
@@ -57,15 +64,7 @@
   padding: 2rem;
 }
 
-@keyframes slideInPaper {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
+/* Back button inside the paper view */
 .back-button {
   position: absolute;
   top: 1rem;
@@ -79,6 +78,7 @@
   z-index: 999;
 }
 
+/* Optional sliver of paper visible before form slides in */
 .paper-edge {
   position: fixed;
   top: 0;
@@ -88,4 +88,14 @@
   background: white;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
   z-index: 997;
+}
+
+/* Slide-in animation */
+@keyframes slideInPaper {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
 }

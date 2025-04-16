@@ -1,15 +1,11 @@
 import { useState } from "react";
 import GeneralInformation from "../components/generalinformation";
-import FlraChecklist from "../components/flrachecklist";
 import PPEPlatformInspection from "../components/ppeplatforminspection";
 import THCModule from "../components/thcmodule";
 import { ViewMode } from "../types/viewmode";
-
+import "../styles/modules.css"; // ✅ new
 const modules = [
   { id: "general", component: <GeneralInformation view="guided" /> },
-  { id: "checklist", component: <FlraChecklist view="guided" /> },
-  { id: "ppe", component: <PPEPlatformInspection view="guided" /> },
-  { id: "thc", component: <THCModule view="guided" /> },
 ];
 
 const GuidedMode = () => {

@@ -1,16 +1,26 @@
 import React from "react";
-import "./sidebar.css";
+import "../styles/sidebar.css";
 
 interface SidebarProps {
   visible: boolean;
   onCreate: () => void;
+  onHome: () => void;
+  onOpenActiveForms: () => void; // ✅ Add this
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ visible, onCreate }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  visible,
+  onCreate,
+  onHome,
+  onOpenActiveForms,
+}) => {
   return (
     <div className={`sidebar ${!visible ? "hidden" : ""}`}>
-      <h2>Welcome to HrdHat</h2>
-      <button onClick={onCreate}>Create Form</button>
+      <button onClick={onCreate}>➕ Create Form</button>
+      <button className="sidebar-home-button" onClick={onHome}>
+        🏠 Home
+      </button>
+      <button onClick={onOpenActiveForms}>📋 Active Forms</button>
     </div>
   );
 };

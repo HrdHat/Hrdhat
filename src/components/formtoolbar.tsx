@@ -1,5 +1,5 @@
 import React from "react";
-import "./formtoolbar.css";
+import "../styles/components.css";
 
 type ViewMode = "zoomed" | "mid" | "full";
 

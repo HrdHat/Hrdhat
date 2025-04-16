@@ -1,0 +1,73 @@
+/* ----------------------------------------
+   MODULES – FLRA Section Layouts
+   ---------------------------------------- */
+
+/* Container box for a form module */
+.module-box {
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+/* Label/title for the module section */
+.module-label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* ------------------------------
+     ZOOMED / GUIDED VIEW STYLES
+     ------------------------------ */
+
+.zoomed-view .zoomed-field {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.zoomed-view input {
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: none;
+  background: #2e2e2e;
+  color: white;
+}
+
+/* Navigation buttons at bottom */
+.zoomed-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+/* ------------------------------
+     MID / QUICKFILL VIEW STYLES
+     ------------------------------ */
+
+.quickfill-view .two-column-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.quickfill-view .field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quickfill-view input {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  background: #2b2b2b;
+  color: white;
+}

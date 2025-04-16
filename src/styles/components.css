@@ -1,0 +1,356 @@
+/* ----------------------------------------
+   COMPONENT STYLES – UI Blocks & Controls
+   ---------------------------------------- */
+
+/* ------------------------------
+   Home Page UI
+   ------------------------------ */
+
+.home-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background-color: var(--paper-bg, #fdfdfd);
+  padding: 2rem;
+}
+
+.home-page-box {
+  background: white;
+  border: 3px solid black;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.home-title {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+/* ------------------------------
+     Home Buttons with Icons
+     ------------------------------ */
+
+.home-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.start-flra-button,
+.home-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  background: linear-gradient(to bottom, #9ea5a3, #8e9390);
+  color: #000;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.9rem 1.5rem;
+  margin: 1rem 0;
+  border: none;
+  border-radius: 4px;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 600;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.3s ease;
+
+  width: fit-content;
+  min-width: 200px;
+  box-sizing: border-box;
+}
+
+.start-flra-button .icon,
+.home-button .icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.home-button:hover,
+.start-flra-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.home-button:active,
+.start-flra-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+/* ----------------------------------------
+   FORM TOOLBAR – View switcher + back nav
+   ---------------------------------------- */
+
+.form-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: #1c1c1c;
+  border-bottom: 1px solid #444;
+  color: white;
+  font-family: "Roboto Condensed", sans-serif;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-toolbar .toolbar-left,
+.form-toolbar .toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-toolbar button,
+.form-toolbar select {
+  background: #2e2e2e;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.form-toolbar button:hover {
+  background-color: #444;
+}
+/* ----------------------------------------
+   SIDEBAR – Form Navigation Panel
+   ---------------------------------------- */
+
+.sidebar {
+  width: 320px;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 1.5rem;
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 900;
+  backdrop-filter: blur(8px);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar button {
+  background: #2cb75c;
+  color: white;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.sidebar button:hover {
+  background-color: #28a352;
+}
+
+.sidebar-toggle-left {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: #1c1c1c;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
+}
+
+.sidebar-toggle-left:hover {
+  background: #2cb75c;
+}
+/* ----------------------------------------
+   FLRA View Selector – Button Layout
+   ---------------------------------------- */
+
+.view-select-page {
+  padding: 2rem;
+  text-align: center;
+}
+
+.view-select-page h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.view-select-page p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: #ccc;
+}
+
+.view-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.view-buttons button {
+  padding: 0.75rem 1.5rem;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.view-buttons button:hover {
+  background: #2cb75c;
+}
+/* ----------------------------------------
+   THC MODULE – Task / Hazard / Control Inputs
+   ---------------------------------------- */
+
+.thc-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+/* Each horizontal input row */
+.thc-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.thc-row input[type="text"] {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.thc-row select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+}
+
+.thc-submit {
+  background: #2cb75c;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.thc-submit:hover {
+  background: #28a352;
+}
+
+.thc-tags {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Pills (entries already submitted) */
+.thc-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #eee;
+  border-left: 6px solid #2cb75c;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: black;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.thc-pill .remove-btn {
+  background: none;
+  border: none;
+  color: #b71c1c;
+  font-weight: bold;
+  margin-left: auto;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+/* ----------------------------------------
+   PPE & PLATFORM INSPECTION
+   ---------------------------------------- */
+
+.ppe-section {
+  margin-top: 2rem;
+}
+
+.ppe-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.ppe-checklist,
+.platform-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ppe-item,
+.platform-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ppe-item input[type="checkbox"],
+.platform-item input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+.ppe-item label,
+.platform-item label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+}

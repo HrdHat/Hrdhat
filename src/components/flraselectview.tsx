@@ -1,6 +1,6 @@
 import React from "react";
 import { ViewMode } from "../types/viewmode";
-import "./flraselectview.css";
+import "../styles/components.css";
 
 interface Props {
   onSelect: (mode: ViewMode) => void;

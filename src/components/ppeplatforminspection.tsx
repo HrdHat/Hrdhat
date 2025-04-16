@@ -1,6 +1,6 @@
 import React from "react";
 import { ppeItems, platformItems } from "../data/formschema";
-import "./ppeplatforminspection.css";
+import "../styles/components.css";
 
 const PPEPlatformInspection: React.FC = () => {
   return (

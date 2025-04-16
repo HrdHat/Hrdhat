@@ -1,19 +1,14 @@
 import { useState } from "react";
 import GeneralInformation from "../components/generalinformation";
-import FlraChecklist from "../components/flrachecklist";
+
 import PPEPlatformInspection from "../components/ppeplatforminspection";
 import THCModule from "../components/thcmodule";
 import { ViewMode } from "../types/viewmode";
-
+import "../styles/modules.css"; // ✅ new
 const QuickFillMode = () => {
   const [index, setIndex] = useState(0);
 
-  const modules = [
-    <GeneralInformation view="quickfill" key="general" />,
-    <FlraChecklist view="quickfill" key="checklist" />,
-    <PPEPlatformInspection view="quickfill" key="ppe" />,
-    <THCModule view="quickfill" key="thc" />,
-  ];
+  const modules = [<GeneralInformation view="quickfill" key="general" />];
 
   return (
     <div className="form-carousel">
