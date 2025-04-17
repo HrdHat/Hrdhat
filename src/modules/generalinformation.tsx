@@ -8,9 +8,15 @@ import { ViewMode } from "../types/viewmode";
 interface Props {
   view: ViewMode;
   draftId: string;
+  fieldIndex?: number;
+  setFieldIndex?: (index: number) => void;
 }
 
-const GeneralInformation: React.FC<Props> = ({ view, draftId }) => {
+const GeneralInformation: React.FC<Props> = ({
+  view,
+  draftId,
+  fieldIndex = 0,
+}) => {
   const [formData, setFormData] = useState<GeneralInfoData>(() => {
     const draft = FLRASessionManager.loadDraft(draftId);
     return (
@@ -35,26 +41,9 @@ const GeneralInformation: React.FC<Props> = ({ view, draftId }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const [fieldIndex, setFieldIndex] = useState(0);
-
+  // --- Guided View ---
   if (view === "guided") {
     const currentField = generalInfoFields[fieldIndex];
-
-    const handleNext = () => {
-      if (fieldIndex < generalInfoFields.length - 1) {
-        setFieldIndex((prev) => prev + 1);
-      }
-    };
-
-    const handleBack = () => {
-      if (fieldIndex > 0) {
-        setFieldIndex((prev) => prev - 1);
-      }
-    };
-
-    const handleNextModule = () => {
-      console.log("TODO: Move to next module");
-    };
 
     return (
       <section className="module-box zoomed-view">
@@ -70,19 +59,11 @@ const GeneralInformation: React.FC<Props> = ({ view, draftId }) => {
             required
           />
         </div>
-
-        <div className="zoomed-nav">
-          {fieldIndex > 0 && <button onClick={handleBack}>← Back</button>}
-          {fieldIndex < generalInfoFields.length - 1 ? (
-            <button onClick={handleNext}>Next →</button>
-          ) : (
-            <button onClick={handleNextModule}>Next Module →</button>
-          )}
-        </div>
       </section>
     );
   }
 
+  // --- Quick Fill View ---
   if (view === "quickfill") {
     return (
       <section className={`module-box ${view}-view`}>
@@ -108,6 +89,7 @@ const GeneralInformation: React.FC<Props> = ({ view, draftId }) => {
     );
   }
 
+  // --- Print View ---
   if (view === "printview") {
     return (
       <section className="module-box print-view">

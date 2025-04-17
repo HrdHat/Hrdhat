@@ -14,7 +14,47 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 }
+body {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 
+  /* ✅ Add this */
+  background-color: #0b0c10;
+  background-image: radial-gradient(
+      circle at top center,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #2c2f36 0px,
+      #2c2f36 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #2c2f36 0px,
+      #2c2f36 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #44474e 0px,
+      #44474e 2px,
+      transparent 2px,
+      transparent 160px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #44474e 0px,
+      #44474e 2px,
+      transparent 2px,
+      transparent 160px
+    );
+}
 /* Reset box model */
 * {
   margin: 0;

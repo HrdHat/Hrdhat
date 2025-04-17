@@ -1,24 +1,28 @@
+// src/components/floatingpanel.tsx
+
 import React from "react";
-import "../styles/sidebar.css";
+import "../styles/sidebar.css"; // already includes floating-panel styles
 
 interface FloatingPanelProps {
   title: string;
   onClose: () => void;
   children: React.ReactNode;
+  visible: boolean;
 }
 
 const FloatingPanel: React.FC<FloatingPanelProps> = ({
   title,
   onClose,
   children,
+  visible,
 }) => {
   return (
-    <div className="floating-panel">
+    <div className={`floating-panel ${visible ? "visible" : ""}`}>
       <div className="floating-panel-header">
-        <h3>{title}</h3>
-        <button className="floating-panel-close" onClick={onClose}>
-          ×
+        <button className="floating-panel-back" onClick={onClose}>
+          ← Back
         </button>
+        <h3>{title}</h3>
       </div>
       <div className="floating-panel-body">{children}</div>
     </div>

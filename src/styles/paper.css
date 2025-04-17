@@ -1,0 +1,21 @@
+.paper-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: calc(100vw - 320px); /* sidebar width */
+  background: white;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  animation: slideInPaper 0.3s ease forwards;
+  overflow-y: auto;
+}
+
+@keyframes slideInPaper {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}

@@ -1,18 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/homepage";
-import FlraFormPage from "./pages/flraformpage"; // ⬅️ Add this import
-import "./styles/layout.css";
-import "./styles/components.css";
-import "./styles/modules.css";
+import { Outlet } from "react-router-dom";
+// ... sidebar + floating panel logic ...
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
+<main className="app-content">
+  <Outlet />
+</main>;
