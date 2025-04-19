@@ -60,7 +60,7 @@
   background: white;
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
   animation: slideInPaper 0.3s forwards;
-  z-index: 998;
+  z-index: 899;
   padding: 2rem;
 }
 
@@ -98,4 +98,22 @@
   to {
     transform: translateX(0%);
   }
+}
+.sidebar {
+  position: fixed; /* Always stays in place */
+  left: 0; /* Pinned to the left */
+  top: 0; /* Pinned to the top */
+  width: 320px; /* Your chosen width */
+  height: 100vh; /* Full viewport height */
+  z-index: 900; /* Make sure it's above content */
+  overflow-y: auto;
+}
+
+.floatingpanel {
+  position: absolute;
+  left: 0; /* Pinned to the left */
+  top: 0; /* Pinned to the top */
+  width: 320px; /* Your chosen width */
+  height: 100vh; /* Full viewport height */
+  z-index: 800; /* Make sure it's above content */
 }

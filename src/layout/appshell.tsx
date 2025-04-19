@@ -60,8 +60,8 @@ const AppShell: React.FC = () => {
   const handleResumeForm = (id: string) => {
     setActiveDraftId(id);
     setViewMode("guided");
-    setActivePanel(null);
-    setSidebarVisible(false);
+    setActivePanel("create"); // ✅ show the paper
+    setSidebarVisible(false); // ✅ collapse sidebar
     navigate("/flra?view=guided");
   };
 
@@ -90,16 +90,18 @@ const AppShell: React.FC = () => {
       )}
 
       <div className="content-region">
-        <FloatingPanel
-          title="Active FLRA Forms"
-          visible={activePanel === "activeForms"}
-          onClose={handleClosePanel}
-        >
-          <ActiveFormsList
+        {activePanel === "activeForms" && (
+          <FloatingPanel
+            title="Active FLRA Forms"
+            visible={true}
             onClose={handleClosePanel}
-            onResume={handleResumeForm}
-          />
-        </FloatingPanel>
+          >
+            <ActiveFormsList
+              onClose={handleClosePanel}
+              onResume={handleResumeForm}
+            />
+          </FloatingPanel>
+        )}
 
         {activePanel === "create" && (
           <PaperContainer>
