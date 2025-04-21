@@ -1,15 +1,13 @@
 /* ----------------------------------------
-   LAYOUT STYLES – CONTAINERS & STRUCTURE
-   ---------------------------------------- */
-
-/* App-level container for full-screen layout */
-.app-container {
+   LAYOUT WRAPPER
+---------------------------------------- */
+/* grid background */
+.layout-wrapper {
   position: relative;
-  width: 100vw;
   height: 100vh;
   overflow: hidden;
 
-  /* Visual background grid */
+  /* ✅ Add this */
   background-color: #0b0c10;
   background-image: radial-gradient(
       circle at top center,
@@ -44,76 +42,131 @@
       transparent 2px,
       transparent 160px
     );
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
+}
+/* Reset box model */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* The sliding paper UI that shows the active form */
-.paper-container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 720px;
+/* ----------------------------------------
+   NAVIGATION REGION (SIDEBAR + FLOATING PANEL)
+---------------------------------------- */
+
+.nav-region {
+  display: absolute;
+  z-index: 600; /* must be below floating panel if not intended to stack */
+  width: 100%; /* or min-width if necessary */
   height: 100vh;
-  background: white;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
-  animation: slideInPaper 0.3s forwards;
-  z-index: 899;
-  padding: 2rem;
 }
 
-/* Back button inside the paper view */
-.back-button {
+/* Sidebar styling (can stay in sidebar.css too) */
+.sidebar {
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  backdrop-filter: blur(8px);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+  z-index: 901;
+}
+
+/* ----------------------------------------
+   FLOATING PANEL
+---------------------------------------- */
+
+.floating-panel {
+  position: absolute;
+  left: 320px; /* Aligns beside sidebar */
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  background-color: #1c1c1c;
+  color: white;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.4);
+  z-index: 902;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.floating-panel.visible {
+  transform: translateX(0%);
+}
+
+.floating-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  padding: 1rem;
+  border-bottom: 1px solid #333;
+}
+
+.floating-panel-body {
+  padding: 1rem;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* ----------------------------------------
+   CONTENT REGION (PAPER + MAIN)
+---------------------------------------- */
+
+.content-region {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin-left: 0; /* not pushed by sidebar */
+  padding-left: 0; /* optional: unless you want visual gap */
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center; /* center vertically */
+  z-index: 100; /* lower than sidebar if needed */
+  overflow: hidden;
+}
+
+/* Optional toggle button */
+.sidebar-toggle-left {
+  position: fixed;
   top: 1rem;
   left: 1rem;
-  cursor: pointer;
-  background: #000;
+  background: #1c1c1c;
   color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
   font-weight: bold;
+  cursor: pointer;
   z-index: 999;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
 }
 
-/* Optional sliver of paper visible before form slides in */
-.paper-edge {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 12px;
-  height: 100vh;
-  background: white;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
-  z-index: 997;
+.sidebar-toggle-left:hover {
+  background: #2cb75c;
+}
+/* ----------------------------------------
+     TEMP STYLES FOR DEBUGGING FLOATING PANEL
+   ---------------------------------------- */
+
+.draft-card {
+  background: #2cb75c;
+  color: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #555;
+  display: flex;
+  justify-content: space-between;
 }
 
-/* Slide-in animation */
-@keyframes slideInPaper {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-.sidebar {
-  position: fixed; /* Always stays in place */
-  left: 0; /* Pinned to the left */
-  top: 0; /* Pinned to the top */
-  width: 320px; /* Your chosen width */
-  height: 100vh; /* Full viewport height */
-  z-index: 900; /* Make sure it's above content */
-  overflow-y: auto;
-}
-
-.floatingpanel {
-  position: absolute;
-  left: 0; /* Pinned to the left */
-  top: 0; /* Pinned to the top */
-  width: 320px; /* Your chosen width */
-  height: 100vh; /* Full viewport height */
-  z-index: 800; /* Make sure it's above content */
+.draft-info,
+.draft-actions {
+  font-size: 1rem;
+  color: white;
 }

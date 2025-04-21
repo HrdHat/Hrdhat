@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/sidebar.css";
+import "../styles/floatingpanel.css"; // styles for the floating panel
 import HomeIcon from "../assets/homeicon.svg";
 import CreateFormIcon from "../assets/newformicon.svg";
 import ActiveFormsIcon from "../assets/activeformicon.svg";
@@ -9,6 +10,7 @@ interface SidebarProps {
   onCreate: () => void;
   onHome: () => void;
   onOpenActiveForms: () => void;
+  onToggle: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -16,9 +18,13 @@ const Sidebar: React.FC<SidebarProps> = ({
   onCreate,
   onHome,
   onOpenActiveForms,
+  onToggle,
 }) => {
   return (
     <aside className={`sidebar ${!visible ? "hidden" : ""}`}>
+      <button className="collapse-btn" onClick={onToggle}>
+        ⇤ Collapse
+      </button>
       <nav>
         <div className="nav-item" onClick={onCreate}>
           <img src={CreateFormIcon} alt="Create Form" className="nav-icon" />

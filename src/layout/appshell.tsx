@@ -25,7 +25,6 @@ const AppShell: React.FC = () => {
   };
 
   const handleCreateForm = () => {
-    // ✅ Limit to 5 active forms
     const activeForms = FLRASessionManager.getAllDrafts();
     if (activeForms.length >= 5) {
       alert(
@@ -34,7 +33,6 @@ const AppShell: React.FC = () => {
       return;
     }
 
-    // ✅ If paper already open, confirm new draft
     if (activePanel === "create") {
       const confirmNew = window.confirm(
         "You already have a form open.\n\nDo you want to discard it and start a new one?"
@@ -42,14 +40,12 @@ const AppShell: React.FC = () => {
       if (!confirmNew) return;
     }
 
-    // ✅ If sidebar is open but paper is tucked, just show the paper again
     if (activeDraftId && activePanel !== "create") {
       setActivePanel("create");
       setSidebarVisible(false);
       return;
     }
 
-    // ✅ Create a new draft and open it
     const newDraft = FLRASessionManager.createNewDraft("New FLRA Form");
     setActiveDraftId(newDraft.id);
     setViewMode("guided");
@@ -60,8 +56,8 @@ const AppShell: React.FC = () => {
   const handleResumeForm = (id: string) => {
     setActiveDraftId(id);
     setViewMode("guided");
-    setActivePanel("create"); // ✅ show the paper
-    setSidebarVisible(false); // ✅ collapse sidebar
+    setActivePanel("create");
+    setSidebarVisible(false);
     navigate("/flra?view=guided");
   };
 
@@ -69,27 +65,18 @@ const AppShell: React.FC = () => {
     setActivePanel(null);
   };
 
-  const showSidebar = sidebarVisible;
-
   return (
     <div className="layout-wrapper">
-      <Sidebar
-        visible={showSidebar}
-        onCreate={handleCreateForm}
-        onHome={() => navigate("/")}
-        onOpenActiveForms={() => openPanel("activeForms")}
-      />
+      {/* Navigation container (Sidebar + FloatingPanel) */}
+      <div className="nav-region">
+        <Sidebar
+          visible={sidebarVisible}
+          onCreate={handleCreateForm}
+          onHome={() => navigate("/")}
+          onOpenActiveForms={() => openPanel("activeForms")}
+          onToggle={() => setSidebarVisible(false)} // 👈 handler
+        />
 
-      {!sidebarVisible && (
-        <div
-          className="sidebar-toggle-left"
-          onClick={() => setSidebarVisible(true)}
-        >
-          ☰ Menu
-        </div>
-      )}
-
-      <div className="content-region">
         {activePanel === "activeForms" && (
           <FloatingPanel
             title="Active FLRA Forms"
@@ -102,8 +89,21 @@ const AppShell: React.FC = () => {
             />
           </FloatingPanel>
         )}
+      </div>
 
-        {activePanel === "create" && (
+      {/* ☰ Burger if sidebar hidden */}
+      {!sidebarVisible && (
+        <div
+          className="sidebar-toggle-left"
+          onClick={() => setSidebarVisible(true)}
+        >
+          ☰ Menu
+        </div>
+      )}
+
+      {/* Main content and paper form */}
+      <div className="content-region">
+        {activeDraftId && (
           <PaperContainer>
             <FlraFormPage
               draftId={activeDraftId ?? undefined}

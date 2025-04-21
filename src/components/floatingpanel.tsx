@@ -2,6 +2,7 @@
 
 import React from "react";
 import "../styles/sidebar.css"; // already includes floating-panel styles
+import "../styles/floatingpanel.css"; // styles for the floating panel
 
 interface FloatingPanelProps {
   title: string;

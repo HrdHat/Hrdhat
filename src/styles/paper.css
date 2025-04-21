@@ -1,13 +1,13 @@
 .paper-container {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: fixed;
+  display: flex;
+  margin: 0 auto;
   height: 100vh;
-  width: calc(100vw - 320px); /* sidebar width */
+  top: 0;
+  width: 816px;
   background: white;
   box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-  animation: slideInPaper 0.3s ease forwards;
+  z-index: 750;
   overflow-y: auto;
 }
 
