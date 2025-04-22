@@ -57,3 +57,30 @@
 .floating-panel-back:hover {
   color: #ffffff;
 }
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1001;
+}
+.floating-panel {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.floating-panel.closed {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .floating-panel {
+    left: 60px; /* ← Adjust to match collapsed sidebar width */
+    width: calc(100vw - 60px);
+  }
+}

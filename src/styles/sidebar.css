@@ -76,3 +76,43 @@
 .nav-item:hover .nav-icon {
   transform: scale(1.05);
 }
+/* ----------------------------------------
+   Collapsed Sidebar on Mobile (Icon-Only)
+---------------------------------------- */
+@media (max-width: 767px) {
+  .sidebar.collapsed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* ✅ this forces full vertical coverage */
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 999;
+    backdrop-filter: blur(6px);
+  }
+
+  .sidebar.collapsed nav {
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .sidebar.collapsed .nav-item {
+    flex-direction: column;
+    gap: 4px;
+    padding: 0.5rem;
+    justify-content: center;
+  }
+
+  .sidebar.collapsed .nav-item span {
+    display: none; /* Hide text labels */
+  }
+
+  .sidebar.collapsed .nav-icon {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+  }
+}

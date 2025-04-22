@@ -10,40 +10,22 @@ import FlraFormPage from "../pages/flraformpage";
 import { FLRASessionManager } from "../utils/flrasessionmanager";
 import { ViewMode } from "../types/viewmode";
 
-const AppShell: React.FC = () => {
-  const [sidebarVisible, setSidebarVisible] = useState(true);
+const AppShellMobile: React.FC = () => {
   const [activePanel, setActivePanel] = useState<
     null | "create" | "activeForms"
   >(null);
-  const [viewMode, setViewMode] = useState<ViewMode | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>("guided");
   const [activeDraftId, setActiveDraftId] = useState<string | null>(null);
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+
   const isFormOpen = Boolean(activeDraftId);
   const navigate = useNavigate();
-
-  const openPanel = (panel: "create" | "activeForms") => {
-    setActivePanel(null);
-    setTimeout(() => setActivePanel(panel), 100);
-  };
+  const [closing, setClosing] = useState(false);
 
   const handleCreateForm = () => {
     const activeForms = FLRASessionManager.getAllDrafts();
     if (activeForms.length >= 5) {
-      alert(
-        "You’ve reached the maximum of 5 active FLRA forms.\n\nPlease submit or remove one before creating a new form."
-      );
-      return;
-    }
-
-    if (activePanel === "create") {
-      const confirmNew = window.confirm(
-        "You already have a form open.\n\nDo you want to discard it and start a new one?"
-      );
-      if (!confirmNew) return;
-    }
-
-    if (activeDraftId && activePanel !== "create") {
-      setActivePanel("create");
-      setSidebarVisible(false);
+      alert("You’ve reached the max of 5 active FLRAs.");
       return;
     }
 
@@ -63,26 +45,40 @@ const AppShell: React.FC = () => {
   };
 
   const handleClosePanel = () => {
-    setActivePanel(null);
+    setClosing(true); // trigger CSS animation
+    setTimeout(() => {
+      setActivePanel(null);
+      setSidebarVisible(true); // reopen sidebar after panel closes
+      setClosing(false); // reset animation state
+    }, 300); // matches CSS transition duration
   };
 
   return (
     <div className="layout-wrapper">
-      {/* Navigation container (Sidebar + FloatingPanel) */}
       <div className="nav-region">
+        {/* Sidebar (collapsed or full) */}
         <Sidebar
-          visible={sidebarVisible}
+          className={
+            activePanel === "activeForms"
+              ? "collapsed"
+              : !sidebarVisible
+              ? "hidden"
+              : ""
+          }
+          visible={true}
           onCreate={handleCreateForm}
           onHome={() => navigate("/")}
-          onOpenActiveForms={() => openPanel("activeForms")}
+          onOpenActiveForms={() => setActivePanel("activeForms")}
           onToggle={() => setSidebarVisible(false)}
         />
 
+        {/* Floating Panel */}
         {activePanel === "activeForms" && (
           <FloatingPanel
             title="Active FLRA Forms"
             visible={true}
             onClose={handleClosePanel}
+            className={closing ? "closed" : ""}
           >
             <ActiveFormsList
               onClose={handleClosePanel}
@@ -92,17 +88,25 @@ const AppShell: React.FC = () => {
         )}
       </div>
 
+      {/* Burger icon */}
+      {!sidebarVisible && activePanel !== "activeForms" && (
+        <div
+          className="sidebar-toggle-left"
+          onClick={() => setSidebarVisible(true)}
+        >
+          ☰
+        </div>
+      )}
+
+      {/* Paper content */}
       <div className="content-region">
         {isFormOpen && (
           <div className="paper-section">
             <PaperContainer>
-              <FlraFormPage
-                draftId={activeDraftId!}
-                viewMode={viewMode ?? "guided"}
-              />
+              <FlraFormPage draftId={activeDraftId!} viewMode={viewMode} />
             </PaperContainer>
             <FormToolbar
-              view={viewMode ?? "guided"}
+              view={viewMode}
               setView={setViewMode}
               onBack={() => navigate("/")}
               onCopy={() => console.log("Copy from Yesterday")}
@@ -119,4 +123,4 @@ const AppShell: React.FC = () => {
   );
 };
 
-export default AppShell;
+export default AppShellMobile;

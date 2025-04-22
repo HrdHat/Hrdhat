@@ -55,7 +55,7 @@
 ---------------------------------------- */
 
 .nav-region {
-  display: absolute;
+  position: absolute;
   z-index: 600; /* must be below floating panel if not intended to stack */
   width: 100%; /* or min-width if necessary */
   height: 100vh;
@@ -195,4 +195,92 @@
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
   z-index: 999;
   border-radius: 12px 12px 0 0;
+}
+/* -----------------------------
+   RESPONSIVE LAYOUT — MEDIA QUERIES
+------------------------------ */
+
+/* Tablet view: 768px – 1023px */
+@media (max-width: 1023px) {
+  .sidebar {
+    width: 260px;
+  }
+
+  .floating-panel {
+    left: 260px;
+    width: 260px;
+  }
+
+  .form-toolbar {
+    max-width: 95vw;
+    padding: 0.75rem 1rem;
+  }
+
+  .content-region {
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+}
+
+/* Mobile view: ≤ 767px */
+@media (max-width: 767px) {
+  .sidebar {
+    width: 265px;
+    height: 100vh; /* ✅ Full height, even in uncollapsed state */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+
+  .floating-panel {
+    position: fixed;
+    top: 0;
+    left: 60px; /* 👈 shift to the right of collapsed sidebar */
+    width: calc(100vw - 60px); /* take up remaining screen width */
+    height: 100vh;
+    background: #1c1c1c;
+    z-index: 950; /* ensure it's above most things, but under modal overlays */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .floating-panel-header {
+    padding: 1rem;
+    background: #000;
+    color: white;
+    border-bottom: 1px solid #444;
+  }
+
+  .floating-panel-body {
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .form-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 100vw;
+    border-radius: 0;
+    padding: 1rem;
+  }
+
+  .content-region {
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: flex-start;
+  }
+
+  .toolbar-bottom-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .back-text,
+  .continue-btn {
+    width: 100%;
+    text-align: center;
+  }
 }

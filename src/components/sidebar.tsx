@@ -11,6 +11,7 @@ interface SidebarProps {
   onHome: () => void;
   onOpenActiveForms: () => void;
   onToggle: () => void;
+  className?: string; // ✅ new prop
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -19,9 +20,10 @@ const Sidebar: React.FC<SidebarProps> = ({
   onHome,
   onOpenActiveForms,
   onToggle,
+  className, // ✅ Add this
 }) => {
   return (
-    <aside className={`sidebar ${!visible ? "hidden" : ""}`}>
+    <aside className={`sidebar ${!visible ? "hidden" : ""} ${className || ""}`}>
       <button className="collapse-btn" onClick={onToggle}>
         ⇤ Collapse
       </button>
@@ -42,4 +44,5 @@ const Sidebar: React.FC<SidebarProps> = ({
     </aside>
   );
 };
+
 export default Sidebar;
