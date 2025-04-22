@@ -8,6 +8,7 @@ import PaperContainer from "../components/papercontainer";
 import { FLRASessionManager } from "../utils/flrasessionmanager";
 import { ViewMode } from "../types/viewmode";
 import FlraFormPage from "../pages/flraformpage";
+import FormToolbar from "../components/formtoolbar"; //
 
 const AppShell: React.FC = () => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
@@ -16,6 +17,7 @@ const AppShell: React.FC = () => {
   >(null);
   const [viewMode, setViewMode] = useState<ViewMode | null>(null);
   const [activeDraftId, setActiveDraftId] = useState<string | null>(null);
+  const isFormOpen = Boolean(activeDraftId);
 
   const navigate = useNavigate();
 
@@ -101,15 +103,24 @@ const AppShell: React.FC = () => {
         </div>
       )}
 
-      {/* Main content and paper form */}
       <div className="content-region">
-        {activeDraftId && (
-          <PaperContainer>
-            <FlraFormPage
-              draftId={activeDraftId ?? undefined}
-              viewMode={viewMode ?? "guided"}
+        {isFormOpen && (
+          <div className="paper-section">
+            <PaperContainer>
+              <FlraFormPage
+                draftId={activeDraftId!}
+                viewMode={viewMode ?? "guided"}
+              />
+            </PaperContainer>
+
+            <FormToolbar
+              view={viewMode ?? "guided"}
+              setView={setViewMode}
+              onBack={() => navigate("/")}
+              onCopy={() => console.log("Copy from Yesterday")}
+              onReset={() => console.log("Reset form")}
             />
-          </PaperContainer>
+          </div>
         )}
 
         <main className="app-content">

@@ -1,7 +1,6 @@
 .paper-container {
   position: fixed;
   display: flex;
-  margin: 0 auto;
   height: 100vh;
   top: 0;
   width: 816px;

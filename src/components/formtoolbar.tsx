@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/components.css";
+import "../styles/formtoolbar.css";
 
 type ViewMode = "zoomed" | "mid" | "full";
 
@@ -8,41 +9,66 @@ interface FormToolbarProps {
   setView: (view: ViewMode) => void;
   onBack: () => void;
   onCopy: () => void;
-  onReset: () => void; // ✅ This is coming from the parent!
 }
+
+const viewLabels: Record<ViewMode, string> = {
+  zoomed: "Guided",
+  mid: "Quick Fill",
+  full: "Print View",
+};
 
 const FormToolbar: React.FC<FormToolbarProps> = ({
   view,
   setView,
   onBack,
   onCopy,
-  onReset, // ✅ Use this instead of local function
 }) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleSelect = (mode: ViewMode) => {
+    setView(mode);
+    setDropdownOpen(false);
+  };
+
   return (
     <div className="form-toolbar">
-      <button onClick={onBack}>Home</button>
-      <div className="view-buttons">
-        <button
-          className={view === "zoomed" ? "active" : ""}
-          onClick={() => setView("zoomed")}
-        >
-          Zoomed
-        </button>
-        <button
-          className={view === "mid" ? "active" : ""}
-          onClick={() => setView("mid")}
-        >
-          Mid
-        </button>
-        <button
-          className={view === "full" ? "active" : ""}
-          onClick={() => setView("full")}
-        >
-          Full
+      {/* Top row: Dropdown + Recall */}
+      <div className="toolbar-top-row">
+        <div className="view-dropdown">
+          <button
+            className="view-dropdown-toggle"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            View Mode: {viewLabels[view]} ▼
+          </button>
+
+          {dropdownOpen && (
+            <div className="view-dropdown-menu">
+              {(["zoomed", "mid", "full"] as ViewMode[]).map((mode) => (
+                <div
+                  key={mode}
+                  className={`dropdown-item ${view === mode ? "active" : ""}`}
+                  onClick={() => handleSelect(mode)}
+                >
+                  {viewLabels[mode]}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <button className="recall-btn" onClick={onCopy}>
+          🔁 Recall
         </button>
       </div>
-      <button onClick={onCopy}>📋 Copy from Yesterday</button>
-      <button onClick={onReset}>🔄 Reset</button> {/* ✅ Use prop here */}
+
+      {/* Bottom row: Back and Continue */}
+      <div className="toolbar-bottom-row">
+        <div className="back-text" onClick={onBack}>
+          ← Back
+        </div>
+        <button className="continue-btn">Continue</button>
+      </div>
     </div>
   );
 };

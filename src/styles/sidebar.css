@@ -1,12 +1,21 @@
+/* ----------------------------------------
+   SIDEBAR STYLES
+---------------------------------------- */
+
 .sidebar {
-  background-color: rgba(0, 0, 0, 0.85);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
   color: white;
   backdrop-filter: blur(8px);
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+  z-index: 901;
   transform: translateX(0);
-  opacity: 1;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  pointer-events: auto;
 }
 
 .sidebar.hidden {
@@ -14,12 +23,14 @@
   opacity: 0;
   pointer-events: none;
 }
-/* Navigation */
+
+/* Navigation Title */
 .sidebar h2 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
+/* Navigation Links */
 .sidebar nav {
   display: flex;
   flex-direction: column;
@@ -28,17 +39,7 @@
   margin-top: 1rem;
 }
 
-.sidebar nav a {
-  all: unset;
-  cursor: pointer;
-  font-family: "Roboto Condensed", sans-serif;
-  font-size: 1.15rem;
-  color: #ffffff;
-  line-height: 1.4;
-  padding-left: 0.25rem;
-  transition: color 0.2s ease;
-}
-
+/* Navigation Items */
 .nav-item {
   all: unset;
   display: flex;
@@ -46,62 +47,32 @@
   gap: 8px;
   color: white;
   font-family: "Roboto Condensed", sans-serif;
-  font-size: 16px; /* ← Use px as requested */
+  font-size: 16px;
   padding: 10px 16px;
-  line-height: 1.4;
   cursor: pointer;
   transition: color 0.2s ease;
 }
-/* Icon beside label */
-.nav-icon {
-  width: 18px; /* ← Sized just smaller than text height */
-  height: 18px;
-  flex-shrink: 0;
-  filter: brightness(0) invert(1); /* ← Force white on dark background */
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-/* Optional: slight scale on hover */
-.nav-item:hover .nav-icon {
-  transform: scale(1.05);
+
+.nav-item:hover {
+  color: #2cb75c;
 }
 
-/* Optional: emphasize active state */
 .nav-item.active {
   font-weight: 600;
   border-left: 3px solid #2cb75c;
   color: white;
 }
 
-.sidebar nav a:hover {
-  color: #2cb75c;
+/* Icons */
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+  display: inline-block;
+  transition: transform 0.2s ease;
 }
 
-.sidebar nav a.active {
-  font-weight: 600;
-  color: #ffffff;
-  border-left: 3px solid #2cb75c;
-  padding-left: 0.5rem;
-}
-/* ----------------------------------------
-     SIDEBAR – Toggle Button (Burger)
-     ---------------------------------------- */
-
-.sidebar-toggle-left {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  background: #1c1c1c;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 999;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.2s;
-}
-
-.sidebar-toggle-left:hover {
-  background: #2cb75c;
+.nav-item:hover .nav-icon {
+  transform: scale(1.05);
 }

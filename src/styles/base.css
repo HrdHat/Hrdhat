@@ -62,15 +62,7 @@ body {
   box-sizing: border-box;
 }
 
-/* Body base layout */
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  display: flex;
-  place-items: center;
-  background-color: #0b0c10;
-}
+
 
 /* Typography */
 h1 {
