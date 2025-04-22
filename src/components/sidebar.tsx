@@ -24,8 +24,8 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <aside className={`sidebar ${!visible ? "hidden" : ""} ${className || ""}`}>
-      <button className="collapse-btn" onClick={onToggle}>
-        ⇤ Collapse
+      <button className="sidebar-close-btn" onClick={onToggle}>
+        ✕
       </button>
       <nav>
         <div className="nav-item" onClick={onCreate}>

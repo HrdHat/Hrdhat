@@ -70,12 +70,23 @@ const AppShell: React.FC = () => {
     <div className="layout-wrapper">
       {/* Navigation container (Sidebar + FloatingPanel) */}
       <div className="nav-region">
+        {!sidebarVisible && (
+          <div
+            className="sidebar-toggle-left"
+            onClick={() => setSidebarVisible(true)}
+          >
+            ☰ Menu
+          </div>
+        )}
         <Sidebar
           visible={sidebarVisible}
           onCreate={handleCreateForm}
           onHome={() => navigate("/")}
           onOpenActiveForms={() => openPanel("activeForms")}
-          onToggle={() => setSidebarVisible(false)}
+          onToggle={() => {
+            setSidebarVisible(false);
+            setActivePanel(null); // ✅ closes floating panel too
+          }}
         />
 
         {activePanel === "activeForms" && (
