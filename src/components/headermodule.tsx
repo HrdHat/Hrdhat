@@ -1,6 +1,7 @@
 // src/components/headermodule.tsx
 import React from "react";
-import "../styles/headermodules.css"; // Adjust the path as necessary
+import "../styles/headermodules.css";
+import FailsafeLogo from "../assets/logo/HRDHAT LOGO & ICONT.svg"; // ✅ working fallback logo
 
 interface HeaderModuleProps {
   title: string;
@@ -8,6 +9,7 @@ interface HeaderModuleProps {
   createdDate: string;
   currentModule: string;
   viewMode: "guided" | "quickfill" | "fullview";
+  logoSrc?: string; // ✅ optional override
 }
 
 const HeaderModule: React.FC<HeaderModuleProps> = ({
@@ -16,6 +18,7 @@ const HeaderModule: React.FC<HeaderModuleProps> = ({
   createdDate,
   currentModule,
   viewMode,
+  logoSrc,
 }) => {
   const modeLabel = {
     guided: "Guided Mode",
@@ -23,18 +26,31 @@ const HeaderModule: React.FC<HeaderModuleProps> = ({
     fullview: "Full View",
   }[viewMode];
 
+  const [useFallback, setUseFallback] = React.useState(false);
+  const resolvedLogo = !useFallback && logoSrc ? logoSrc : FailsafeLogo;
+
   return (
     <div className="header-module">
       <div className="header-top">
-        <h1 className="form-title">{title}</h1>
-        <div className="form-meta">
-          <span className="form-id">Form #: {formId}</span>
-          <span className="created-date">Created: {createdDate}</span>
+        <div className="header-logo">
+          <img
+            src={resolvedLogo}
+            alt="HrdHat Logo"
+            onError={() => {
+              console.warn(
+                "Logo failed to load. Falling back to failsafe logo."
+              );
+              setUseFallback(true);
+            }}
+          />
         </div>
-      </div>
-      <div className="header-sub">
-        <span className="current-module">{currentModule}</span>
-        <span className="view-mode">({modeLabel})</span>
+        <div className="header-textblock">
+          <h2 className="form-title">{title}</h2>
+          <div className="form-meta">
+            <span className="form-id">Form #: {formId}</span>
+            <span className="created-date">Created: {createdDate}</span>
+          </div>
+        </div>
       </div>
     </div>
   );

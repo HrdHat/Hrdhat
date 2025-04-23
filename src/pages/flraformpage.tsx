@@ -2,6 +2,8 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { ViewMode } from "../types/viewmode";
 import HeaderModule from "../components/headermodule"; // ✅ import
+import "../styles/flraformpage.css"; // ✅ import
+import EngineerLogo from "../assets/logo/engineer.png";
 
 interface Props {
   viewMode?: ViewMode;
@@ -28,6 +30,7 @@ const FlraFormPage: React.FC<Props> = ({ viewMode, draftId }) => {
         createdDate={createdDate}
         currentModule={currentModule}
         viewMode={currentView}
+        logoSrc="../assets/logo/engineer.png"
       />
 
       {/* 🧱 Your FLRA modules will render here later */}
