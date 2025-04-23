@@ -6,7 +6,7 @@
   width: 816px;
   background: white;
   box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
-  z-index: 750;
+  z-index: 500;
   overflow-y: auto;
 }
 
@@ -34,14 +34,17 @@
 /* Mobile view: ≤ 767px */
 @media (max-width: 767px) {
   .paper-container {
-    position: absolute;
+    position: relative;
     width: 100vw;
-    height: auto;
-    max-height: calc(100vh - 6rem); /* leave space for toolbar */
+    height: 100%;
+    max-height: none;
     top: 0;
     left: 0;
+    padding: 1rem;
     border-radius: 0;
     box-shadow: none;
-    padding-bottom: 2rem;
+    overflow-y: auto;
+    flex-direction: column;
+    flex: 1;
   }
 }

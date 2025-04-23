@@ -59,8 +59,12 @@
   z-index: 600; /* must be below floating panel if not intended to stack */
   width: 100%; /* or min-width if necessary */
   height: 100vh;
+  pointer-events: none; /* 👈 Allows clicks to pass through */
 }
-
+/* ✅ Re-enable pointer events ONLY for sidebar and floating panel */
+.nav-region > * {
+  pointer-events: auto;
+}
 /* Sidebar styling (can stay in sidebar.css too) */
 .sidebar {
   position: absolute;
@@ -129,7 +133,8 @@
   justify-content: center; /* center horizontally */
   align-items: center; /* center vertically */
   z-index: 100; /* lower than sidebar if needed */
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto; /* or visible if you prefer */
 }
 
 /* Optional toggle button */
@@ -174,7 +179,9 @@
      Paper section and form toolbar wrapper
    ---------------------------------------- */
 .paper-section {
+  flex: 1;
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -267,9 +274,11 @@
   }
 
   .content-region {
+    display: flex;
     flex-direction: column;
-    padding: 1rem;
     justify-content: flex-start;
+    flex: 1;
+    padding: 1rem;
   }
 
   .toolbar-bottom-row {

@@ -32,26 +32,36 @@ const PageToolbar: React.FC<PageToolbarProps> = ({
 
   return (
     <>
-      <div className="page-toolbar-top">
-        {onSwitchView && (
-          <button onClick={onSwitchView} className="switch-btn">
-            🔄 {switchLabel}
-          </button>
-        )}
-        {onRecall && (
-          <button
-            onClick={onRecall}
-            className="recall-btn"
-            disabled={!isRecallAvailable}
-          >
-            📋 Recall
-          </button>
-        )}
-      </div>
+      <div className="page-toolbar">
+        <div className="toolbar-top-row">
+          {onSwitchView && (
+            <button onClick={onSwitchView} className="switch-btn">
+              🔄 {switchLabel}
+            </button>
+          )}
+          {onRecall && (
+            <button
+              onClick={onRecall}
+              className="recall-btn"
+              disabled={!isRecallAvailable}
+            >
+              📋 Recall
+            </button>
+          )}
+        </div>
 
-      <div className="page-toolbar-bottom">
-        {onBack && <button onClick={onBack}>← Back</button>}
-        {onContinue && <button onClick={onContinue}>{continueLabel}</button>}
+        <div className="toolbar-bottom-row">
+          {onBack && (
+            <button onClick={onBack} className="back-btn">
+              ← Back
+            </button>
+          )}
+          {onContinue && (
+            <button onClick={onContinue} className="continue-btn">
+              {continueLabel}
+            </button>
+          )}
+        </div>
       </div>
     </>
   );
