@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FLRA Implementation Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles/base/variables.css" />
+    <link rel="stylesheet" href="src/styles/base/module.css" />
+    <link rel="stylesheet" href="src/styles/base/fields.css" />
+    <style>
+      @font-face {
+        font-family: "Tekton Pro";
+        src: url("fonts/TektonPro-Regular.otf") format("opentype");
+      }
+
+      body {
+        padding: 2rem;
+        font-family: var(--font-family-base);
+      }
+
+      input {
+        font-family: "Tekton Pro", sans-serif;
+      }
+
+      label {
+        font-family: "Roboto Condensed", sans-serif;
+      }
+      .controls {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: var(--background-secondary);
+        border-radius: var(--border-radius-md);
+      }
+      .view-mode-selector {
+        margin-bottom: 1rem;
+      }
+      .css-test-controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+      }
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .control-group label {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+      }
+      .control-group input,
+      .control-group select {
+        padding: 0.5rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-sm);
+      }
+      .debug-info {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: var(--border-radius-sm);
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <div class="view-mode-selector">
+        <label>View Mode:</label>
+        <select id="viewMode">
+          <option value="guided">Guided</option>
+          <option value="quick-fill">Quick Fill</option>
+          <option value="print">Print</option>
+        </select>
+      </div>
+      <button onclick="testFormState()">Test Form State</button>
+      <button onclick="testUserState()">Test User State</button>
+
+      <div class="debug-info">
+        <div>Current View Mode: <span id="currentViewMode">guided</span></div>
+        <div>Module Classes: <span id="moduleClasses"></span></div>
+      </div>
+
+      <div class="css-test-controls">
+        <div class="control-group">
+          <label>Module Padding</label>
+          <input type="range" id="modulePadding" min="0" max="48" value="16" />
+        </div>
+        <div class="control-group">
+          <label>Field Spacing</label>
+          <input type="range" id="fieldSpacing" min="0" max="48" value="16" />
+        </div>
+        <div class="control-group">
+          <label>Font Size</label>
+          <input type="range" id="fontSize" min="12" max="24" value="16" />
+        </div>
+        <div class="control-group">
+          <label>Border Radius</label>
+          <input type="range" id="borderRadius" min="0" max="24" value="4" />
+        </div>
+        <div class="control-group">
+          <label>Primary Color</label>
+          <input type="color" id="primaryColor" value="#007bff" />
+        </div>
+      </div>
+    </div>
+
+    <div class="module-box" id="testModule" data-view-mode="guided">
+      <div class="module-label">GENERAL INFORMATION</div>
+      <div class="module-content">
+        <div class="field-container" data-view-mode="guided">
+          <label class="field-label required">Project Name:</label>
+          <input
+            type="text"
+            class="field-input"
+            placeholder="Enter project name"
+          />
+        </div>
+
+        <div class="field-container" data-view-mode="guided">
+          <label class="field-label">Task Location:</label>
+          <input
+            type="text"
+            class="field-input"
+            placeholder="Enter task location"
+          />
+        </div>
+
+        <div class="field-container" data-view-mode="guided">
+          <label class="field-label required">Supervisor's Name:</label>
+          <input
+            type="text"
+            class="field-input"
+            placeholder="Enter supervisor's name"
+          />
+        </div>
+
+        <div class="field-container" data-view-mode="guided">
+          <label class="field-label">Supervisor's Contact #:</label>
+          <input
+            type="tel"
+            class="field-input"
+            placeholder="Enter contact number"
+          />
+        </div>
+
+        <div class="field-container" data-view-mode="guided">
+          <label class="field-label required">Today's Date:</label>
+          <input type="date" class="field-input field-date" />
+        </div>
+
+        <div class="field-container" data-view-mode="guided">
+          <label class="field-label"># of Crew Members:</label>
+          <input type="number" class="field-input" placeholder="Enter number" />
+        </div>
+
+        <div class="field-container" data-view-mode="guided">
+          <label class="field-label">Today's Task:</label>
+          <input
+            type="text"
+            class="field-input"
+            placeholder="Enter task description"
+          />
+        </div>
+
+        <div class="field-container" data-view-mode="guided">
+          <label class="field-label">Start Time:</label>
+          <input type="time" class="field-input" />
+        </div>
+
+        <div class="field-container" data-view-mode="guided">
+          <label class="field-label">End Time:</label>
+          <input type="time" class="field-input" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // View mode handling
+      const viewModeSelect = document.getElementById("viewMode");
+      const testModule = document.getElementById("testModule");
+      const currentViewMode = document.getElementById("currentViewMode");
+      const moduleClasses = document.getElementById("moduleClasses");
+
+      function updateViewMode(mode) {
+        // Update module
+        testModule.setAttribute("data-view-mode", mode);
+
+        // Update all field containers
+        document.querySelectorAll(".field-container").forEach((container) => {
+          container.setAttribute("data-view-mode", mode);
+        });
+
+        // Update debug info
+        currentViewMode.textContent = mode;
+        moduleClasses.textContent = testModule.className;
+
+        console.log("View mode updated:", mode);
+      }
+
+      viewModeSelect.addEventListener("change", (e) => {
+        updateViewMode(e.target.value);
+      });
+
+      // Initialize with guided mode
+      updateViewMode("guided");
+
+      // CSS Testing Controls
+      const root = document.documentElement;
+
+      // Module Padding
+      document
+        .getElementById("modulePadding")
+        .addEventListener("input", (e) => {
+          root.style.setProperty("--spacing-md", `${e.target.value}px`);
+        });
+
+      // Field Spacing
+      document.getElementById("fieldSpacing").addEventListener("input", (e) => {
+        document.querySelectorAll(".field-container").forEach((container) => {
+          container.style.marginBottom = `${e.target.value}px`;
+        });
+      });
+
+      // Font Size
+      document.getElementById("fontSize").addEventListener("input", (e) => {
+        root.style.setProperty("--font-size-base", `${e.target.value}px`);
+      });
+
+      // Border Radius
+      document.getElementById("borderRadius").addEventListener("input", (e) => {
+        root.style.setProperty("--border-radius-md", `${e.target.value}px`);
+      });
+
+      // Primary Color
+      document.getElementById("primaryColor").addEventListener("input", (e) => {
+        root.style.setProperty("--primary-color", e.target.value);
+      });
+
+      // Form state test
+      window.testFormState = () => {
+        console.log("Form state test clicked");
+      };
+
+      // User state test
+      window.testUserState = () => {
+        console.log("User state test clicked");
+      };
+    </script>
+  </body>
+</html>

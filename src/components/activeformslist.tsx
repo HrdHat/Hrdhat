@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FLRASessionManager, FLRADraft } from "../utils/flrasessionmanager";
+import SubmitButton from "./SubmitButton";
 import "../styles/activeformscontent.css";
 
 interface ActiveFormsContentProps {
@@ -30,6 +31,11 @@ const ActiveFormsContent: React.FC<ActiveFormsContentProps> = ({
     }
   };
 
+  const handleSubmitComplete = (id: string) => {
+    // Remove the draft from the list after successful submission
+    setDrafts(drafts.filter((draft) => draft.id !== id));
+  };
+
   return (
     <div className="active-forms-content">
       {drafts.length === 0 ? (
@@ -43,6 +49,10 @@ const ActiveFormsContent: React.FC<ActiveFormsContentProps> = ({
             </div>
             <div className="draft-actions">
               <button onClick={() => handleResume(draft.id)}>Resume</button>
+              <SubmitButton
+                draft={draft}
+                onSubmitComplete={() => handleSubmitComplete(draft.id)}
+              />
               <button
                 onClick={() => handleDelete(draft.id)}
                 className="delete-btn"

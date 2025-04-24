@@ -1,5 +1,6 @@
 // src/components/headermodule.tsx
 import React from "react";
+import { ViewMode } from "../types/viewmode";
 import "../styles/headermodules.css";
 import FailsafeLogo from "../assets/logo/HRDHAT LOGO & ICONT.svg"; // ✅ working fallback logo
 
@@ -8,7 +9,7 @@ interface HeaderModuleProps {
   formId: string;
   createdDate: string;
   currentModule: string;
-  viewMode: "guided" | "quickfill" | "fullview";
+  viewMode: ViewMode;
   logoSrc?: string; // ✅ optional override
 }
 
@@ -23,7 +24,7 @@ const HeaderModule: React.FC<HeaderModuleProps> = ({
   const modeLabel = {
     guided: "Guided Mode",
     quickfill: "Quick Fill Mode",
-    fullview: "Full View",
+    printview: "Print View Mode",
   }[viewMode];
 
   const [useFallback, setUseFallback] = React.useState(false);

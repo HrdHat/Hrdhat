@@ -1,20 +1,21 @@
 import React, { useState } from "react";
+import { ViewMode } from "../types/viewmode";
 import "../styles/components.css";
 import "../styles/formtoolbar.css";
-
-type ViewMode = "zoomed" | "mid" | "full";
 
 interface FormToolbarProps {
   view: ViewMode;
   setView: (view: ViewMode) => void;
   onBack: () => void;
   onCopy: () => void;
+  onReset: () => void;
+  onDelete: () => void;
 }
 
 const viewLabels: Record<ViewMode, string> = {
-  zoomed: "Guided",
-  mid: "Quick Fill",
-  full: "Print View",
+  guided: "Guided",
+  quickfill: "Quick Fill",
+  printview: "Print View",
 };
 
 const FormToolbar: React.FC<FormToolbarProps> = ({
@@ -22,12 +23,23 @@ const FormToolbar: React.FC<FormToolbarProps> = ({
   setView,
   onBack,
   onCopy,
+  onReset,
+  onDelete,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleSelect = (mode: ViewMode) => {
     setView(mode);
     setDropdownOpen(false);
+  };
+
+  const handleDelete = () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this form?\n\nThis action cannot be undone."
+    );
+    if (confirmDelete) {
+      onDelete();
+    }
   };
 
   return (
@@ -44,22 +56,33 @@ const FormToolbar: React.FC<FormToolbarProps> = ({
 
           {dropdownOpen && (
             <div className="view-dropdown-menu">
-              {(["zoomed", "mid", "full"] as ViewMode[]).map((mode) => (
-                <div
-                  key={mode}
-                  className={`dropdown-item ${view === mode ? "active" : ""}`}
-                  onClick={() => handleSelect(mode)}
-                >
-                  {viewLabels[mode]}
-                </div>
-              ))}
+              {(["guided", "quickfill", "printview"] as ViewMode[]).map(
+                (mode) => (
+                  <div
+                    key={mode}
+                    className={`dropdown-item ${view === mode ? "active" : ""}`}
+                    onClick={() => handleSelect(mode)}
+                  >
+                    {viewLabels[mode]}
+                  </div>
+                )
+              )}
             </div>
           )}
         </div>
 
-        <button className="recall-btn" onClick={onCopy}>
-          🔁 Recall
-        </button>
+        <div className="toolbar-actions">
+          <button
+            className="delete-btn"
+            onClick={handleDelete}
+            title="Delete form"
+          >
+            🗑️
+          </button>
+          <button className="recall-btn" onClick={onCopy}>
+            🔁 Recall
+          </button>
+        </div>
       </div>
 
       {/* Bottom row: Back and Continue */}

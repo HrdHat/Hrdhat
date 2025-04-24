@@ -4,12 +4,14 @@ import "../styles/floatingpanel.css"; // styles for the floating panel
 import HomeIcon from "../assets/homeicon.svg";
 import CreateFormIcon from "../assets/newformicon.svg";
 import ActiveFormsIcon from "../assets/activeformicon.svg";
+import HistoryIcon from "../assets/historyicon.svg";
 
 interface SidebarProps {
   visible: boolean;
   onCreate: () => void;
   onHome: () => void;
   onOpenActiveForms: () => void;
+  onOpenHistory: () => void;
   onToggle: () => void;
   className?: string; // ✅ new prop
 }
@@ -19,6 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onCreate,
   onHome,
   onOpenActiveForms,
+  onOpenHistory,
   onToggle,
   className, // ✅ Add this
 }) => {
@@ -39,6 +42,10 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="nav-item" onClick={onOpenActiveForms}>
           <img src={ActiveFormsIcon} alt="Active Forms" className="nav-icon" />
           <span>Active Forms</span>
+        </div>
+        <div className="nav-item" onClick={onOpenHistory}>
+          <img src={HistoryIcon} alt="History" className="nav-icon" />
+          <span>History</span>
         </div>
       </nav>
     </aside>

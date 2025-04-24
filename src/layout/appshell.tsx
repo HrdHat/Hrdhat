@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 
 import Sidebar from "../components/sidebar";
 import FloatingPanel from "../components/floatingpanel";
 import ActiveFormsList from "../components/activeformslist";
+import ArchivedFormsList from "../components/ArchivedFormsList";
 import PaperContainer from "../components/papercontainer";
 import FormToolbar from "../components/formtoolbar";
 import FlraFormPage from "../pages/flraformpage";
@@ -13,53 +14,78 @@ import { ViewMode } from "../types/viewmode";
 const AppShell: React.FC = () => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [activePanel, setActivePanel] = useState<
-    null | "create" | "activeForms"
+    null | "create" | "activeForms" | "history"
   >(null);
-  const [viewMode, setViewMode] = useState<ViewMode | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>("guided");
   const [activeDraftId, setActiveDraftId] = useState<string | null>(null);
   const isFormOpen = Boolean(activeDraftId);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const openPanel = (panel: "create" | "activeForms") => {
+  const openPanel = (panel: "create" | "activeForms" | "history") => {
     setActivePanel(null);
     setTimeout(() => setActivePanel(panel), 100);
   };
 
-  const handleCreateForm = () => {
-    const activeForms = FLRASessionManager.getAllDrafts();
-    if (activeForms.length >= 5) {
-      alert(
-        "You’ve reached the maximum of 5 active FLRA forms.\n\nPlease submit or remove one before creating a new form."
-      );
+  const handleFormStateChange = async (newDraftId: string | null) => {
+    // If we're closing a form
+    if (!newDraftId) {
+      setActiveDraftId(null);
+      setActivePanel(null);
+      setSidebarVisible(true);
+      navigate("/");
       return;
     }
 
-    if (activePanel === "create") {
-      const confirmNew = window.confirm(
-        "You already have a form open.\n\nDo you want to discard it and start a new one?"
+    // If we have an open form
+    if (activeDraftId) {
+      const confirmSwitch = window.confirm(
+        "You have an open form. Would you like to save it before switching?"
       );
-      if (!confirmNew) return;
+      if (!confirmSwitch) {
+        return false;
+      }
+      // Here you could add logic to save the current form if needed
     }
 
-    if (activeDraftId && activePanel !== "create") {
-      setActivePanel("create");
-      setSidebarVisible(false);
+    // Open the new form
+    setActiveDraftId(newDraftId);
+    setViewMode("guided");
+    setActivePanel("create");
+    setSidebarVisible(false);
+    navigate("/flra");
+    return true;
+  };
+
+  const handleCreateForm = async () => {
+    const activeForms = Object.values(FLRASessionManager.getAllDrafts());
+    if (activeForms.length >= 5) {
+      alert(
+        "You've reached the maximum of 5 active FLRA forms.\n\nPlease submit or remove one before creating a new form."
+      );
       return;
     }
 
     const newDraft = FLRASessionManager.createNewDraft("New FLRA Form");
-    setActiveDraftId(newDraft.id);
-    setViewMode("guided");
-    setActivePanel("create");
-    setSidebarVisible(false);
+    await handleFormStateChange(newDraft.id);
   };
 
-  const handleResumeForm = (id: string) => {
-    setActiveDraftId(id);
-    setViewMode("guided");
-    setActivePanel("create");
-    setSidebarVisible(false);
-    navigate("/flra?view=guided");
+  const handleResumeForm = async (id: string) => {
+    const success = await handleFormStateChange(id);
+    if (success) {
+      setActivePanel(null); // Close the active forms panel after successful resume
+    }
+  };
+
+  const handleCloseForm = async () => {
+    await handleFormStateChange(null);
+  };
+
+  const handleDeleteForm = () => {
+    if (activeDraftId) {
+      FLRASessionManager.deleteDraft(activeDraftId);
+      handleFormStateChange(null);
+    }
   };
 
   const handleClosePanel = () => {
@@ -81,11 +107,12 @@ const AppShell: React.FC = () => {
         <Sidebar
           visible={sidebarVisible}
           onCreate={handleCreateForm}
-          onHome={() => navigate("/")}
+          onHome={() => handleFormStateChange(null)}
           onOpenActiveForms={() => openPanel("activeForms")}
+          onOpenHistory={() => openPanel("history")}
           onToggle={() => {
             setSidebarVisible(false);
-            setActivePanel(null); // ✅ closes floating panel too
+            setActivePanel(null);
           }}
         />
 
@@ -101,30 +128,38 @@ const AppShell: React.FC = () => {
             />
           </FloatingPanel>
         )}
+
+        {activePanel === "history" && (
+          <FloatingPanel
+            title="Form History"
+            visible={true}
+            onClose={handleClosePanel}
+          >
+            <ArchivedFormsList onClose={handleClosePanel} />
+          </FloatingPanel>
+        )}
       </div>
 
       <div className="content-region">
-        {isFormOpen && (
+        {isFormOpen ? (
           <div className="paper-section">
             <PaperContainer>
-              <FlraFormPage
-                draftId={activeDraftId!}
-                viewMode={viewMode ?? "guided"}
-              />
+              <FlraFormPage draftId={activeDraftId!} viewMode={viewMode} />
             </PaperContainer>
             <FormToolbar
-              view={viewMode ?? "guided"}
+              view={viewMode}
               setView={setViewMode}
-              onBack={() => navigate("/")}
+              onBack={handleCloseForm}
               onCopy={() => console.log("Copy from Yesterday")}
               onReset={() => console.log("Reset form")}
+              onDelete={handleDeleteForm}
             />
           </div>
+        ) : (
+          <main className="app-content">
+            <Outlet />
+          </main>
         )}
-
-        <main className="app-content">
-          <Outlet />
-        </main>
       </div>
     </div>
   );

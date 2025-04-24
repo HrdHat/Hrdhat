@@ -1,0 +1,106 @@
+.validation-feedback {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.validation-errors {
+  margin-bottom: 1rem;
+}
+
+.validation-error {
+  display: flex;
+  align-items: center;
+  color: #ff4444;
+  margin: 0.25rem 0;
+  padding: 0.5rem;
+  background: rgba(255, 68, 68, 0.1);
+  border-radius: 4px;
+}
+
+.error-icon {
+  margin-right: 0.5rem;
+}
+
+.system-errors {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  max-width: 400px;
+  z-index: 9999;
+}
+
+.system-error {
+  background: #1c1c1c;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.system-error:hover {
+  transform: translateX(-5px);
+}
+
+.system-error.critical {
+  border-left: 4px solid #ff4444;
+}
+
+.system-error.high {
+  border-left: 4px solid #ff8800;
+}
+
+.system-error.medium {
+  border-left: 4px solid #ffcc00;
+}
+
+.system-error.low {
+  border-left: 4px solid #88cc00;
+}
+
+.error-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.error-type {
+  color: #888;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.error-severity {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.error-message {
+  color: #fff;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.retry-count {
+  display: block;
+  color: #888;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* Animation for new errors */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.system-error {
+  animation: slideIn 0.3s ease-out;
+}

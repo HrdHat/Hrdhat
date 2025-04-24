@@ -1,0 +1,36 @@
+.submit-button {
+  background: #2cb75c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.submit-button:hover {
+  background: #249f4e;
+}
+
+.submit-button.submitting {
+  background: #666;
+  cursor: not-allowed;
+}
+
+.submit-button.completed {
+  background: #2cb75c;
+}
+
+.submit-button.error {
+  background: #b71c1c;
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

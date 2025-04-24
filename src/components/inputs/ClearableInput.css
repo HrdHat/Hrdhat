@@ -1,0 +1,46 @@
+.clearable-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.clearable-input-container .field-input {
+  padding-right: 2rem; /* Space for clear button */
+}
+
+.clearable-input-container .field-input.has-clear-button {
+  padding-right: 2rem;
+}
+
+.clear-button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.clearable-input-container:hover .clear-button {
+  opacity: 1;
+}
+
+.clear-button:hover {
+  color: var(--text-primary);
+}
+
+.clear-button:focus {
+  outline: none;
+  color: var(--text-primary);
+  opacity: 1;
+}

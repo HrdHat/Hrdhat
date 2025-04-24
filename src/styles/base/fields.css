@@ -1,0 +1,147 @@
+/* Base Field Container */
+.field-container {
+  margin-bottom: var(--spacing-md);
+  position: relative;
+  width: 100%;
+}
+
+/* Field Label */
+.field-label {
+  display: block;
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-base);
+  padding-right: var(--spacing-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.75rem;
+}
+
+.field-label.required::after {
+  content: "*";
+  color: var(--danger-color);
+  margin-left: var(--spacing-xs);
+}
+
+/* Base Input Styles */
+.field-input {
+  width: 100%;
+  padding: 0.3rem;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family-input);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-input);
+  transition: var(--transition-base);
+  min-width: 0;
+  margin-top: 0.25rem;
+  box-sizing: border-box;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.field-input:disabled {
+  background-color: var(--background-secondary);
+  cursor: not-allowed;
+}
+
+.field-input.error {
+  border-color: var(--danger-color);
+}
+
+/* Checkbox and Radio Styles */
+.field-container.checkbox-container {
+  grid-template-columns: 200px auto;
+}
+
+.field-checkbox,
+.field-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+}
+
+.field-checkbox input,
+.field-radio input {
+  margin: 0;
+}
+
+.checkbox-label,
+.radio-label {
+  color: var(--text-primary);
+  user-select: none;
+  font-family: var(--font-family-input);
+}
+
+/* Select Styles */
+.field-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%236c757d' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-sm) center;
+  padding-right: var(--spacing-xl);
+  font-family: var(--font-family-input);
+}
+
+/* Date and Time Input Styles */
+.field-date::-webkit-calendar-picker-indicator,
+.field-time::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+/* View Mode Variations */
+/* Print Mode */
+.field-container[data-view-mode="print"] {
+  margin-bottom: var(--spacing-sm);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* Quick Fill Mode */
+.field-container[data-view-mode="quick-fill"] {
+  margin-bottom: var(--spacing-md);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* Guided Mode */
+.field-container[data-view-mode="guided"] {
+  margin-bottom: var(--spacing-lg);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.field-container[data-view-mode="guided"] .field-label {
+  text-align: right;
+  margin-top: 0;
+}
+
+.field-container[data-view-mode="guided"] .field-input {
+  font-size: var(--font-size-base);
+  margin-top: 0;
+}
+
+/* Helper Text */
+.field-helper {
+  color: var(--text-helper);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+  font-family: var(--font-family-base);
+  grid-column: 2 / -1;
+}
+
+.field-helper.error {
+  color: var(--danger-color);
+}

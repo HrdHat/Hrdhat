@@ -7,8 +7,17 @@ import AppShell from "./layout/appshell";
 import AppShellMobile from "./layout/appshellmobile"; // ✅ Make sure this exists
 import HomePage from "./pages/homepage";
 import FLRAFormPage from "./pages/flraformpage";
-
+import { initializeSupabase } from "./utils/supabase.init";
 import { useIsMobile } from "./hooks/useismobile";
+
+// Initialize Supabase in the background
+initializeSupabase().then((success) => {
+  if (success) {
+    console.log("Supabase initialized successfully");
+  } else {
+    console.log("Running in local-only mode");
+  }
+});
 
 function AppRouter() {
   const isMobile = useIsMobile();

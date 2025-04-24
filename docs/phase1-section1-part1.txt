@@ -1,0 +1,143 @@
+PHASE 1 - SECTION 1 - PART 1: Form Actions
+
+IMPLEMENTATION CHECKLIST:
+
+[Component Modifications]
+src/components/formtoolbar.tsx:
+□ Remove submit button from toolbar
+□ Add delete button to left side
+□ Update component props interface
+□ Add delete confirmation handling
+
+src/styles/formtoolbar.css:
+□ Update toolbar layout without submit
+□ Add delete button styling
+□ Adjust spacing for new layout
+□ Add hover/active states for delete
+
+src/styles/base/fields.css:
+□ Add clearable input container styles
+□ Add clear button positioning
+□ Add hover states for clear button
+□ Update input padding for clear button space
+
+src/styles/base/module.css:
+□ Review module container styles
+□ Ensure compatibility with new input styles
+□ Check view mode specific styles
+
+[New Components to Create]
+src/components/inputs/:
+□ Create ClearableInput.tsx
+□ Create ClearableInput.css
+□ Add input props interface
+□ Implement clear functionality
+□ Add auto-save trigger
+
+src/components/sidebar/:
+□ Create ActiveFormsList.tsx
+□ Create ActiveFormsList.css
+□ Add form list interface
+□ Implement delete/submit actions
+
+[Services to Create]
+src/services/:
+□ Create FormStorageService.ts
+□ Implement auto-save logic
+□ Add form state management
+□ Create FormSubmissionService.ts
+□ Add validation logic
+□ Implement 14-hour timer
+
+[Types to Create]
+src/types/:
+□ Create form.types.ts
+□ Define FormState interface
+□ Define ValidationState interface
+□ Add submission status types
+
+[Existing Features to Preserve]
+View Modes:
+□ Maintain guided mode functionality
+□ Preserve quick fill mode
+□ Keep print view intact
+□ Ensure view switching works
+
+Form State:
+□ Keep current form data structure
+□ Preserve validation logic
+□ Maintain module navigation
+□ Keep existing error handling
+
+1. FIELD LEVEL CLEAR
+   - Small 'x' button appears in input field when it has content
+   - Position: Right side of each input field
+   - Visibility: Only shows when field has content
+   - Action: Clears only that specific input field
+   - No confirmation needed for individual field clear
+   - Auto-saves when field is cleared
+
+2. DELETE FORM BUTTON
+   - Purpose: Remove entire form instance
+   - Removes form from local storage
+   - Requires confirmation dialog
+   - Use case: Abandoning a form entirely
+   - Returns user to form selection/creation
+
+FORM STATE MANAGEMENT:
+- Continuous auto-save as user types/makes changes
+- Saves to local storage immediately after each change
+- No explicit save button needed
+- Handles all input types (text, checkboxes, dates, etc.)
+- Preserves form state on page refresh/close
+- Maintains separate drafts for multiple forms
+
+FORM SUBMISSION FLOWS:
+
+1. Normal Flow (Through Form Completion):
+   - Submit button appears only after completing all modules
+   - Not shown in form toolbar
+   - Appears as "Send to Supervisor" at form completion
+   - Guides user through validation before submission
+   - Available in both guided and quick fill modes
+
+2. Override Flow (Through Sidebar):
+   - Access via sidebar "Active Forms" section
+   - Shows list of all active forms
+   - Each form entry has:
+     * Form identifier/details
+     * Delete (X) button
+     * "Submit Form" button for immediate submission
+   - Allows submission regardless of completion state
+   - Used for end-of-shift or necessary early submissions
+
+IMPLEMENTATION NOTES:
+- Field 'x' button integrated into input field design
+- Delete form button added to form-toolbar (left side)
+- Submit functionality removed from form toolbar
+- Delete requires confirmation dialog
+- Submission state tracked per form
+
+STYLING:
+Field Clear (x):
+- Small, subtle 'x' icon
+- Only visible when field has content
+- Hover effect for better UX
+- Position absolute within input container
+
+Delete Form:
+- Use destructive action color (red variant)
+- Include warning icon
+- Position on left side of toolbar
+
+Sidebar Active Forms:
+- Clear list layout of active forms
+- Each form row shows status/completion
+- Delete and Submit actions clearly separated
+- Submit button uses primary action color
+- Delete (X) uses subtle destructive styling
+
+CONFIRMATION DIALOG (Delete Form):
+- Strong warning about permanent deletion
+- Mention that this action cannot be undone
+- Options: "Delete Form" / "Cancel" 

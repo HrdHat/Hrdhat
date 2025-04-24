@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import { ViewMode } from "../types/viewmode";
 import HeaderModule from "../components/headermodule"; // ✅ import
 import "../styles/flraformpage.css"; // ✅ import
@@ -14,21 +14,20 @@ const FlraFormPage: React.FC<Props> = ({ viewMode, draftId }) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const urlView = params.get("view") as ViewMode;
-
   const currentView = viewMode || urlView || "guided";
 
-  // 🔧 TEMP placeholders until context is wired in
-  const formId = draftId ?? "HRDHAT-FLRA-001";
-  const createdDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-  const currentModule = "General Information"; // This will later come from context or routing
+  // If no draftId is provided, redirect to home
+  if (!draftId) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="form-page">
       <HeaderModule
         title="Field Level Risk Assessment"
-        formId={formId}
-        createdDate={createdDate}
-        currentModule={currentModule}
+        formId={draftId}
+        createdDate={new Date().toISOString().split("T")[0]}
+        currentModule="General Information"
         viewMode={currentView}
         logoSrc="../assets/logo/engineer.png"
       />
