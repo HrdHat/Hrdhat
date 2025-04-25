@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HRDHat FLRA PDF</title>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.6/dist/signature_pad.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="page">
+      <header class="form-header">
+        <div class="header-left">
+          <img src="HRDHAT LOGO & ICONT.svg" alt="HRDHat Logo" class="logo" />
+        </div>
+        <div class="header-right">
+          <h2>Field Level Risk Assessment (FLRA)</h2>
+          <br />
+          <p>Form #: HRDHAT-FLRA-001</p>
+        </div>
+      </header>
+      <main>
+        <section class="module-box">
+          <span class="module-label">General Information</span>
+          <div class="two-column-form">
+            <label for="project-name">Project Name:</label
+            ><input
+              type="text"
+              id="project-name"
+              name="project-name"
+              required
+            /><label for="task-location">Task Location:</label
+            ><input
+              type="text"
+              id="task-location"
+              name="task-location"
+              required
+            /><label for="supervisor-name">Supervisor's Name:</label>
+            <input
+              type="text"
+              id="supervisor-name"
+              name="supervisor-name"
+              required
+            /><label for="supervisor-contact">Supervisor's Contact #:</label>
+            <input
+              type="text"
+              id="supervisor-contact"
+              name="supervisor-contact"
+              required
+            /><label for="todays-date">Today's Date:</label>
+            <input
+              type="date"
+              id="todays-date"
+              name="todays-date"
+              required
+            /><label for="crew-members"># of Crew Members:</label
+            ><input
+              type="text"
+              id="crew-members"
+              name="Num-of-crew-members"
+              required
+            /><label for="todays-task">Today's Task:</label>
+            <input type="text" id="todays-task" name="todays-task" required />
+            <!-- EMPTY left side -->
+            <!-- Start Time (on right column) --><label for="start-time"
+              >Start Time:</label
+            ><input type="time" id="start-time" name="start-time" required />
+            <!-- EMPTY left side -->
+            <div></div>
+            <div></div>
+            <!-- End Time (on right column) --><label for="end-time"
+              >End Time:</label
+            ><input type="time" id="end-time" name="end-time" required />
+          </div>
+        </section>
+        <section class="module-box">
+          <span class="module-label">FLRA Pre-Job/Task Checklist</span>
+          <div class="checklist-grid">
+            <label class="check-item"
+              ><input type="checkbox" />Are you well-rested and fit for
+              duty?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Are you trained and competent for your
+              tasks today?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Have you reviewed the work area for
+              hazards?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Have you inspected your tools and
+              equipment?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Do you have the required PPE for
+              today?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Have you reviewed the control measures
+              needed today?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Is your equipment inspection
+              up-to-date?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Have you reviewed your emergency
+              procedures?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Have you completed your FLRA / hazard
+              assessment?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Are all required permits in place (if
+              applicable)?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Has all safety signage been installed
+              and checked?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Have you communicated with your crew
+              about today's plan?</label
+            >
+            <label class="check-item"
+              ><input type="checkbox" />Are you working alone today?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Is there a need for spotters,
+              barricades, or other special controls?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Do you have all required permits for
+              today’s tasks?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Is the weather or environmental
+              condition suitable for work?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Have all necessary barricades, signage,
+              and barriers been installed and are in good condition?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Do you know who the designated first aid
+              attendant is today?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Do you have clear access to emergency
+              exits and muster points?</label
+            ><label class="check-item"
+              ><input type="checkbox" />Are you aware of any specific site
+              notices or bulletins today?</label
+            >
+          </div>
+        </section>
+        <section class="module-box">
+          <span class="module-label">PPE & Platform Inspection</span>
+          <div class="ppe-platform-section">
+            <div class="ppe-subheading">
+              Personal Protective Equipment (PPE)
+            </div>
+            <label><input type="checkbox" />Hardhat</label
+            ><label><input type="checkbox" />Safety Vest</label
+            ><label><input type="checkbox" />Safety Glasses</label
+            ><label><input type="checkbox" />Fall Protection</label
+            ><label><input type="checkbox" />Coveralls</label
+            ><label><input type="checkbox" />Gloves</label
+            ><label><input type="checkbox" />Mask</label
+            ><label><input type="checkbox" />Respirator</label>
+            <div class="ppe-subheading">Equipment Platforms</div>
+            <label><input type="checkbox" />Ladder</label
+            ><label><input type="checkbox" />Step Bench / Work Bench</label
+            ><label><input type="checkbox" />Sawhorses</label
+            ><label><input type="checkbox" />Baker Scaffold</label
+            ><label><input type="checkbox" />Scaffold</label
+            ><label><input type="checkbox" />Scissor Lift</label
+            ><label><input type="checkbox" />Boom Lift</label
+            ><label><input type="checkbox" />Swing Stage</label
+            ><label><input type="checkbox" />Hydro Lift</label>
+          </div>
+        </section>
+      </main>
+    </div>
+    <!-- Close first page -->
+    <div class="page-break"></div>
+    <div class="page">
+      <div style="height: 72px"></div>
+      <section class="module-box">
+        <span class="module-label">Task, Hazard, Control</span>
+        <table class="thc-table input-table">
+          <thead>
+            <tr>
+              <td><input type="text" id="taskInput" placeholder="Task" /></td>
+              <td><input type="text" id="hazardInput" placeholder="Hazard" /></td>
+              <td>
+                <select id="hazardRiskInput" class="risk-select"
+                  style="width: 50px; height: 32px; font-size: 13px; font-weight: bold; padding: 0; text-align: center;">
+                  <option value="1" style="background-color: #00e676">1</option>
+                  <option value="2" style="background-color: #66bb6a">2</option>
+                  <option value="3" style="background-color: #cddc39">3</option>
+                  <option value="4" style="background-color: #ffeb3b">4</option>
+                  <option value="5" style="background-color: #ffc107">5</option>
+                  <option value="6" style="background-color: #ff9800">6</option>
+                  <option value="7" style="background-color: #ff5722">7</option>
+                  <option value="8" style="background-color: #f44336">8</option>
+                  <option value="9" style="background-color: #e53935">9</option>
+                  <option value="10" selected style="background-color: #b71c1c">10</option>
+                </select>
+              </td>
+              <td><input type="text" id="controlInput" placeholder="Control" /></td>
+              <td>
+                <select id="controlRiskInput" class="risk-select"
+                  style="width: 50px; height: 32px; font-size: 13px; font-weight: bold; padding: 0; text-align: center;">
+                  <option value="1" style="background-color: #00e676">1</option>
+                  <option value="2" style="background-color: #66bb6a">2</option>
+                  <option value="3" style="background-color: #cddc39">3</option>
+                  <option value="4" style="background-color: #ffeb3b">4</option>
+                  <option value="5" style="background-color: #ffc107">5</option>
+                  <option value="6" style="background-color: #ff9800">6</option>
+                  <option value="7" style="background-color: #ff5722">7</option>
+                  <option value="8" style="background-color: #f44336">8</option>
+                  <option value="9" style="background-color: #e53935">9</option>
+                  <option value="10" selected style="background-color: #b71c1c">10</option>
+                </select>
+              </td>
+              <td><button class="submit-button" onclick="submitTHC()">Submit</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="thc-table output-table">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Hazard</th>
+              <th>Control</th>
+              <th>Risk Level</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody id="pillTableBody">
+            <!-- Placeholder row (for print mode) -->
+            <tr id="placeholderRow">
+              <td colspan="5" style="height: 100px"></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="module-box">
+        <span class="module-label">Signature and Confirmation</span>
+        <div class="signature-section">
+          <p>
+            By signing below, you confirm that you have reviewed today’s tasks and associated hazards, understand the control measures in place, agree to follow all outlined safety procedures, and will stop work to report any new or changed risks.
+          </p>
+      
+          <!-- WORKER SIGNATURES -->
+          <div class="signature-grid-wrapper">
+            <div id="workerSignatures" class="worker-grid">
+              <!-- JS will insert signature rows here -->
+            </div>
+          </div>
+          <button type="button" onclick="addWorker()" class="add-worker-btn">+ Add Worker</button>
+      
+          <!-- SUPERVISOR SECTION -->
+          <div class="supervisor-section">
+            <div class="supervisor-entry">
+              <div class="signature-block">
+                <div class="signature-label">🧑‍💼 <span>Supervisor Signature</span></div>
+                <canvas class="signature-pad" id="supervisorCanvas" width="200" height="50"></canvas>
+              </div>
+              <input type="text" id="supervisorName" name="supervisorName" class="name-input" placeholder="Supervisor Name" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

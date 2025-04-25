@@ -12,8 +12,10 @@ This is a React-based web application for managing Field Level Risk Assessment (
 - **Language**: TypeScript 5.7
 - **Linting**: ESLint 9
 - **Data Storage**:
-  - Current: Local Storage
-  - Future: Supabase Backend
+  - Hybrid: Local Storage + Supabase
+  - Local-first architecture with offline support
+  - Background synchronization with Supabase
+  - Conflict resolution for concurrent edits
 - **Future Mobile App**:
   - Separate codebase for Android/iOS
   - Native mobile experience
@@ -28,11 +30,13 @@ src/
 ├── assets/         # Static assets like images and icons
 ├── components/     # Reusable React components
 ├── data/          # Data models and constants
+├── db/            # Database schema and migrations
 ├── fillmodes/     # Form filling modes and logic
 ├── hooks/         # Custom React hooks
 ├── layout/        # Layout components (AppShell, AppShellMobile)
 ├── modules/       # Feature-specific modules
 ├── pages/         # Page components
+├── services/      # Service layer (Supabase, Forms, Modules)
 ├── styles/        # CSS styles
 ├── types/         # TypeScript type definitions
 ├── utils/         # Utility functions
@@ -188,9 +192,22 @@ src/
 
    - **Current Implementation**
 
-     - Local Storage for form data
-     - Temporary storage during form completion
-     - Maintains form state across page refreshes
+     - **Local-First Architecture**
+
+       - Forms are stored in local storage first
+       - Background sync with Supabase when online
+       - Offline support with automatic sync on reconnection
+       - Conflict resolution for concurrent edits
+
+     - **Supabase Integration**
+       - Core tables implemented:
+         - Forms
+         - Form modules
+         - Attachments
+         - Signatures
+       - Row Level Security (RLS) policies configured
+       - Real-time updates supported
+       - Version control for form edits
 
    - **Future Implementation (Supabase)**
      - Backend database integration

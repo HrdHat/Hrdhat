@@ -1,0 +1,177 @@
+LIGHTWEIGHT AUTH IMPLEMENTATION PLAN
+
+1. Database Setup (FIRST)
+   ☐ Profiles Table
+     - Review current structure
+     - Add missing fields if needed
+     - Add necessary indexes
+   
+   ☐ RLS Policies
+     - Review current policies
+     - Fix recursive policy issues
+     - Test policy effectiveness
+   
+   ☐ Test Data
+     - Create test user in auth.users
+     - Create matching profile
+     - Verify data access works
+
+2. Development Environment
+   ☐ Environment Setup
+     - Set up required ENV variables
+     - Configure Supabase URL and keys
+     - Add development user credentials
+   
+   ☐ Development Utils
+     - Create SQL setup script
+     - Add development shortcuts
+     - Document local setup process
+
+3. Core Auth Setup
+   ☐ Supabase Client
+     - Initialize auth client properly
+     - Set up session handling
+     - Test with development user
+   
+   ☐ Auth State Management
+     - Session persistence
+     - Token handling
+     - Error handling setup
+
+4. Layout Components
+   ☐ AuthLayout (for non-authenticated pages)
+     - Clean, minimal layout
+     - No sidebar
+     - Logo/branding
+     - Card layout for auth forms
+   
+   ☐ AppLayout (for authenticated pages)
+     - Full application layout
+     - Sidebar (only visible when authenticated)
+     - Header with user info
+     - Main content area
+
+5. Auth Components
+   ☐ AuthForm
+     - Reusable form component
+     - Input validation
+     - Error display
+     - Loading states
+
+   ☐ ProtectedRoute
+     - HOC or middleware
+     - Session check
+     - Redirect if not authenticated
+
+6. Auth Pages
+   ☐ /auth/login
+     - Email/password form
+     - Login button
+     - Link to signup
+     - Error handling display
+   
+   ☐ /auth/signup
+     - Email/password form
+     - Basic profile fields (name)
+     - Create account button
+     - Link to login
+     - Error handling display
+
+   ☐ /auth/logout
+     - Redirect component
+     - Clear session
+     - Return to login
+
+7. Protected Pages
+   ☐ Home Screen (/dashboard or /)
+     - Welcome message with user name
+     - Create Form button
+     - List of forms (if any)
+     - Logout button
+
+8. Testing Points
+   ☐ Database
+     - RLS policies work
+     - Test user has access
+     - Profile creation works
+
+   ☐ Auth Flow
+     - Successful login
+     - Successful signup
+     - Failed login handling
+     - Failed signup handling
+     - Session persistence
+     - Logout flow
+
+   ☐ Protected Routes
+     - Redirect when not authenticated
+     - Stay when authenticated
+     - Session expiry handling
+
+   ☐ Development
+     - Test user works
+     - Auto-login in dev
+     - Profile creation
+     - Policy testing
+
+9. File Structure
+   src/
+     db/
+       setup.sql        # Database setup and test data
+     
+     pages/
+       auth/
+         login.tsx
+         signup.tsx
+         logout.tsx
+       dashboard.tsx (or index.tsx)
+     
+     components/
+       layouts/
+         AuthLayout.tsx
+         AppLayout.tsx
+       auth/
+         AuthForm.tsx
+         ProtectedRoute.tsx
+     
+     hooks/
+       useAuth.ts
+     
+     services/
+       supabase.ts
+
+10. Required ENV Variables
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=
+    NEXT_PUBLIC_DEV_EMAIL=
+    NEXT_PUBLIC_DEV_PASSWORD=
+
+11. Success Criteria
+    Database:
+    - RLS policies work correctly
+    - Test data is accessible
+    - No recursion errors
+
+    Development:
+    - Local setup is straightforward
+    - Test user works reliably
+    - Environment is consistent
+
+    Auth Flow:
+    - User can create account
+    - User can log in
+    - User can log out
+    - Sessions persist on refresh
+    - Protected routes work
+    - Error states handled
+    - Loading states shown
+
+NOTES:
+- Keep it simple, no password reset initially
+- No email verification required yet
+- No social auth providers yet
+- Focus on email/password flow
+- Minimal UI, can be styled later
+- Just enough for testing other features
+- Test database setup before building UI
+- Verify auth works with test user before adding pages 

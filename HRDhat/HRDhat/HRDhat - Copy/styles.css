@@ -1,0 +1,639 @@
+@font-face {
+  font-family: "Tekton";
+  src: url("./fonts/tekton.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 14px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #e0e0e0;
+  font-family: "Roboto", sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #000;
+}
+
+.page {
+  width: 816px;
+  height: 1056px;
+  background: white;
+  margin: 72px auto;
+  padding: 1rem 31px 0 31px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-height: 150px;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  max-height: 150px;
+  max-width: 300px;
+  object-fit: contain;
+}
+
+.header-right {
+  text-align: right;
+  flex-grow: 1;
+  margin-left: auto;
+}
+
+.form-title {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.form-id {
+  font-size: 0.8rem;
+  margin: 0.25rem 0 0 0;
+  color: #444;
+}
+
+.module-box {
+  position: relative;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 1.5rem 1rem 1rem;
+  margin-bottom: 2rem;
+  background: #fff;
+}
+
+.module-label {
+  position: absolute;
+  top: -0.65rem;
+  left: 1rem;
+  background: #fff;
+  padding: 0 0.5rem;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+label {
+  display: block;
+  margin-top: 0.75rem;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+  width: 100%;
+  font-size: 11px;
+  padding: 0.3rem;
+  margin-top: 0.25rem;
+  box-sizing: border-box;
+}
+
+.form-group {
+  margin-bottom: 0.75rem;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+.ppe-checklist label,
+.platform-checklist label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.thc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.thc-table th,
+.thc-table td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.signature-section ul {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.two-column-form {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  column-gap: 0.75rem;
+  /* reduced gap */
+  row-gap: 1rem;
+  align-items: center;
+}
+
+.two-column-form label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.two-column-form input {
+  width: 100%;
+  padding: 0.3rem;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 2rem;
+  padding-top: 1rem;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.25rem;
+  /* tighten vertical spacing */
+  padding-top: 0.5rem;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  gap: 0.35rem;
+  line-height: 1.3;
+  /* slightly tighter line spacing */
+  margin: 0;
+  /* remove any extra margin */
+  padding: 0.2rem 0;
+  /* smaller vertical padding */
+}
+
+.check-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 0.2rem;
+  accent-color: #000;
+  /* Modern browsers - makes it black */
+  border: 1.5px solid #000;
+  /* Fallback border */
+  transform: scale(1.2);
+  /* Scale up */
+  cursor: pointer;
+}
+
+.sub-subheading {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
+}
+
+.checklist-4col {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.4rem 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.checklist-4col label {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.checklist-4col input[type="checkbox"] {
+  transform: scale(1);
+}
+
+.ppe-platform-section {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.35rem 1rem;
+  font-size: 10px;
+  line-height: 1.3;
+  margin-top: 0.5rem;
+}
+
+.ppe-platform-section label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.ppe-platform-section input[type="checkbox"] {
+  transform: scale(0.9);
+  margin-top: 0.1rem;
+}
+
+.ppe-subheading {
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  grid-column: 1 / -1;
+  padding: 0.5rem 0 0.25rem;
+  border-top: 1px solid #ccc;
+}
+
+.risk-tag-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.hazard-input-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 0.4fr 1.2fr 0.4fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Table Layout ---------- */
+.thc-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 0.5rem 0 1rem;
+}
+
+.thc-table th,
+.thc-table td {
+  padding: 0.5rem;
+  vertical-align: top; /* 🆙 aligns to top when content wraps */
+  text-align: left;
+  white-space: normal; /* ✅ allows wrapping */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.thc-table td input,
+.thc-table td select {
+  width: 100%;
+  font-size: 12px;
+  padding: 4px;
+}
+
+/* ---------- Column Widths ---------- */
+.thc-table th:nth-child(3),
+.thc-table td:nth-child(3),
+.thc-table th:nth-child(5),
+.thc-table td:nth-child(5) {
+  width: 50px;
+  /* Risk level columns */
+  text-align: center;
+}
+
+.thc-table th:last-child,
+.thc-table td:last-child {
+  width: 70px;
+  /* Submit button column */
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* ---------- Risk Select Dropdown ---------- */
+.risk-select {
+  width: 50px; /* smaller fixed width */
+  height: 32px;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  appearance: none;
+  color: white;
+  background-color: #00e676;
+  text-align: center;
+  text-align-last: center;
+  line-height: 1;
+}
+
+/* Support for JS color updates */
+.risk-select[data-color] {
+  background-color: var(--risk-color, #ccc);
+}
+
+/* ---------- Submit Button ---------- */
+.submit-button,
+.thc-table button {
+  display: block;
+  margin: 0 auto;
+  font-size: 12px;
+  padding: 4px 12px;
+  height: 30px;
+}
+
+/* ---------- Icon Headers ---------- */
+th.icon-header {
+  width: 40px;
+  text-align: center;
+  padding: 0;
+}
+
+.risk-icon {
+  width: 25px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+th.submit-col {
+  width: 70px;
+  text-align: center;
+}
+
+/* ---------- Submitted "Chips" ---------- */
+.risk-tag-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.risk-chip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  white-space: nowrap;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #b71c1c;
+  font-weight: 900;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.risk-pill-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.risk-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  white-space: nowrap;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to right, #00e676, #b71c1c);
+  /* placeholder */
+}
+
+.risk-pill .remove-btn {
+  background: none;
+  border: none;
+  color: #b71c1c; /* or red */
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.risk-pill .remove-btn:hover {
+  color: darkred;
+  transform: scale(1.15); /* or a lighter red */
+}
+.risk-gradient-cell {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 11px;
+  line-height: 1;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  white-space: nowrap;
+  max-height: 1.5em;
+  vertical-align: middle;
+}
+.thc-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Task, Hazard, Control text inputs */
+.thc-table th:nth-child(1),
+.thc-table td:nth-child(1),
+.thc-table th:nth-child(2),
+.thc-table td:nth-child(2),
+.thc-table th:nth-child(4),
+.thc-table td:nth-child(4) {
+  width: 25%;
+}
+
+/* Hazard Risk (was column 3) */
+.thc-table th:nth-child(3),
+.thc-table td:nth-child(3),
+/* Control Risk (was column 5) */
+.thc-table th:nth-child(5),
+.thc-table td:nth-child(5) {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  text-align: center;
+}
+
+/* Submit button (last column) */
+.thc-table th:nth-child(6),
+.thc-table td:nth-child(6) {
+  width: 80px;
+  text-align: center;
+}
+.hazard-input-row select.risk-select {
+  width: 60px !important;
+  min-width: 60px;
+  max-width: 60px;
+  height: 32px;
+  padding: 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.hazard-input-row select,
+.hazard-input-row input {
+  height: 32px;
+  font-size: 13px;
+  padding: 0 6px;
+  box-sizing: border-box;
+}
+.input-table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.input-table th:nth-child(1),
+.input-table td:nth-child(1), /* Task */
+.input-table th:nth-child(2),
+.input-table td:nth-child(2)  /* Hazard */ {
+  width: 25%;
+}
+
+.input-table th:nth-child(3),
+.input-table td:nth-child(3), /* Hazard Risk */
+.input-table th:nth-child(5),
+.input-table td:nth-child(5)  /* Control Risk */ {
+  width: 60px;
+  text-align: center;
+}
+
+.input-table th:nth-child(4),
+.input-table td:nth-child(4)  /* Control */ {
+  width: 20%;
+}
+
+.input-table th:nth-child(6),
+.input-table td:nth-child(6)  /* Submit */ {
+  width: 80px;
+  text-align: center;
+}
+
+/* === OUTPUT TABLE (submitted pill rows) === */
+.output-table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.output-table th:nth-child(1),
+.output-table td:nth-child(1), /* Task */
+.output-table th:nth-child(2),
+.output-table td:nth-child(2), /* Hazard */
+.output-table th:nth-child(3),
+.output-table td:nth-child(3)  /* Control */ {
+  width: 25%;
+}
+
+.output-table th:nth-child(4),
+.output-table td:nth-child(4)  /* Risk Pill */ {
+  width: 90px;
+  text-align: center;
+}
+
+.output-table th:nth-child(5),
+.output-table td:nth-child(5)  /* Remove X */ {
+  width: 60px;
+  text-align: center;
+}
+.worker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.worker-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid #999;
+  border-radius: 6px;
+  padding: 0.5rem;
+  background: white;
+}
+
+/* Signature canvas block */
+.signature-block {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.signature-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #333;
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.signature-pad {
+  height: 50px;
+  border: 1px solid #999;
+  border-top: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background-color: #fff;
+  cursor: crosshair;
+}
+
+/* Name input under signature */
+.name-input {
+  font-size: 12px;
+  padding: 0.4rem;
+  border: 1px solid #999;
+  border-radius: 4px;
+  margin-top: 0.3rem;
+}
+signature-grid-wrapper {
+  max-width: 760px; /* Safe width for letter/A4 PDF export */
+  margin: 0 auto; /* Centers it */
+}
+.signature-pad {
+  width: 100%; /* fill the box */
+  max-width: 100%; /* don't overflow */
+  box-sizing: border-box;
+}

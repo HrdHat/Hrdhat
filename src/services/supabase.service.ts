@@ -10,17 +10,11 @@ type SupabaseConfig = {
 
 export class SupabaseService {
   private static instance: SupabaseService;
-  private client: SupabaseClient<Database>;
+  private client: SupabaseClient<Database> | null = null;
+  private isInitialized = false;
 
   private constructor() {
-    const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-    const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-
-    if (!supabaseUrl || !supabaseKey) {
-      throw new Error("Missing Supabase credentials");
-    }
-
-    this.client = createClient<Database>(supabaseUrl, supabaseKey);
+    // Don't automatically initialize - wait for explicit initialization
   }
 
   static getInstance(): SupabaseService {
@@ -38,8 +32,11 @@ export class SupabaseService {
       const { error } = await this.client.from("forms").select("count");
       if (error) throw error;
 
+      this.isInitialized = true;
       console.log("Supabase connection established");
     } catch (error) {
+      this.client = null;
+      this.isInitialized = false;
       await errorService.handleError(error, {
         type: "network",
         severity: "high",
@@ -50,22 +47,25 @@ export class SupabaseService {
     }
   }
 
-  getClient(): SupabaseClient<Database> {
-    if (!this.client) {
-      throw new Error("Supabase client not initialized");
-    }
+  getClient(): SupabaseClient<Database> | null {
     return this.client;
   }
 
+  isConnected(): boolean {
+    return this.isInitialized && this.client !== null;
+  }
+
   async createForm(draft: FLRADraft): Promise<void> {
+    if (!this.isConnected()) return; // Silently return if not connected
+
     try {
-      const { error } = await this.client.from("forms").insert({
+      const { error } = await this.client!.from("forms").insert({
         id: draft.id,
         general_info: draft.generalInfo,
         modules: draft.modules,
         status: draft.status,
         last_modified: draft.lastModified,
-        created_by: (await this.client.auth.getUser()).data.user?.id,
+        created_by: (await this.client!.auth.getUser()).data.user?.id,
       });
 
       if (error) throw error;
@@ -81,9 +81,10 @@ export class SupabaseService {
   }
 
   async updateForm(draft: FLRADraft): Promise<void> {
+    if (!this.isConnected()) return; // Silently return if not connected
+
     try {
-      const { error } = await this.client
-        .from("forms")
+      const { error } = await this.client!.from("forms")
         .update({
           general_info: draft.generalInfo,
           modules: draft.modules,
@@ -105,9 +106,10 @@ export class SupabaseService {
   }
 
   async deleteForm(formId: string): Promise<void> {
+    if (!this.isConnected()) return; // Silently return if not connected
+
     try {
-      const { error } = await this.client
-        .from("forms")
+      const { error } = await this.client!.from("forms")
         .delete()
         .eq("id", formId);
 
@@ -124,8 +126,10 @@ export class SupabaseService {
   }
 
   async getForms(): Promise<FLRADraft[]> {
+    if (!this.isConnected()) return []; // Return empty array if not connected
+
     try {
-      const { data, error } = await this.client.from("forms").select("*");
+      const { data, error } = await this.client!.from("forms").select("*");
 
       if (error) throw error;
       if (!data) return [];

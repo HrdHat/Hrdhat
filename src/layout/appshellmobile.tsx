@@ -9,6 +9,7 @@ import PaperContainer from "../components/papercontainer";
 import FormToolbar from "../components/formtoolbar";
 import FlraFormPage from "../pages/flraformpage";
 import { FLRASessionManager } from "../utils/flrasessionmanager";
+import { formService } from "../services/form.service";
 import { ViewMode } from "../types/viewmode";
 
 const AppShellMobile: React.FC = () => {
@@ -54,16 +55,39 @@ const AppShellMobile: React.FC = () => {
   };
 
   const handleCreateForm = async () => {
-    const activeForms = Object.values(FLRASessionManager.getAllDrafts());
-    if (activeForms.length >= 5) {
-      alert(
-        "You've reached the maximum of 5 active FLRA forms.\n\nPlease submit or remove one before creating a new form."
-      );
-      return;
-    }
+    try {
+      const activeForms = Object.values(FLRASessionManager.getAllDrafts());
+      if (activeForms.length >= 5) {
+        alert(
+          "You've reached the maximum of 5 active FLRA forms.\n\nPlease submit or remove one before creating a new form."
+        );
+        return;
+      }
 
-    const newDraft = FLRASessionManager.createNewDraft("New FLRA Form");
-    await handleFormStateChange(newDraft.id);
+      // Create a new draft with initial data
+      const newDraft = {
+        id: `draft_${Date.now()}`,
+        generalInfo: {
+          title: "New FLRA Form",
+          userId: "", // Will be populated by Supabase
+        },
+        modules: {},
+        status: "draft" as const,
+        lastModified: new Date().toISOString(),
+      };
+
+      // Create form using formService which handles both local and Supabase storage
+      const result = await formService.createForm(newDraft);
+
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+
+      await handleFormStateChange(newDraft.id);
+    } catch (error) {
+      alert("Failed to create new form. Please try again.");
+      console.error("Error creating form:", error);
+    }
   };
 
   const handleResumeForm = async (id: string) => {
