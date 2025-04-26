@@ -6,6 +6,8 @@ import HomePage from "./pages/homepage";
 import FlraFormPage from "./pages/flraformpage";
 import { useIsMobile } from "./hooks/useismobile";
 import { initService } from "./services/init.service";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import LoginPage from "./pages/auth/login";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -18,7 +20,15 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Shell />}>
+        <Route path="/auth/login" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Shell />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<HomePage />} />
           <Route path="flra" element={<FlraFormPage />} />
         </Route>

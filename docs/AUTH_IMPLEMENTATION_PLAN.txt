@@ -1,31 +1,42 @@
 LIGHTWEIGHT AUTH IMPLEMENTATION PLAN
 
 1. Database Setup (FIRST)
-   ☐ Profiles Table
+   ☑ Profiles Table
      - Review current structure
      - Add missing fields if needed
      - Add necessary indexes
    
-   ☐ RLS Policies
+   ☑ RLS Policies
      - Review current policies
      - Fix recursive policy issues
      - Test policy effectiveness
    
-   ☐ Test Data
+   ☑ Test Data
      - Create test user in auth.users
      - Create matching profile
      - Verify data access works
 
 2. Development Environment
-   ☐ Environment Setup
+   ☐ Environment Setup (PARTIAL)
      - Set up required ENV variables
+       - ⚠️ .env file with Supabase keys and dev credentials needed
      - Configure Supabase URL and keys
      - Add development user credentials
    
-   ☐ Development Utils
-     - Create SQL setup script
-     - Add development shortcuts
-     - Document local setup process
+   ☐ Development Utils (PARTIAL)
+     - ☑ Create SQL setup script
+     - ☐ Add development shortcuts (e.g., auto-login, dev-only routes)
+     - ☐ Document local setup process (add to README or docs/LOCAL_SETUP.md)
+
+   ---
+   Checklist for Step 2:
+   [ ] Create .env file in project root with:
+       VITE_SUPABASE_URL=your-supabase-url
+       VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+       VITE_DEV_EMAIL=worker@example.com
+       VITE_DEV_PASSWORD=password123
+   [ ] Add section to README or docs/LOCAL_SETUP.md with local setup instructions
+   [ ] (Optional) Add dev shortcut for auto-login in development mode
 
 3. Core Auth Setup
    ☐ Supabase Client

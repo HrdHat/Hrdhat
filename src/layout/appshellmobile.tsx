@@ -24,17 +24,19 @@ const AppShellMobile: React.FC = () => {
   const isFormOpen = Boolean(activeDraftId);
   const navigate = useNavigate();
 
+  React.useEffect(() => {
+    console.log("[AppShellMobile] Mounted");
+  }, []);
+
   const handleFormStateChange = async (newDraftId: string | null) => {
-    // If we're closing a form
     if (!newDraftId) {
       setActiveDraftId(null);
       setActivePanel(null);
       setSidebarVisible(true);
       navigate("/");
+      console.log("[AppShellMobile] Form closed");
       return;
     }
-
-    // If we have an open form
     if (activeDraftId) {
       const confirmSwitch = window.confirm(
         "You have an open form. Would you like to save it before switching?"
@@ -42,15 +44,13 @@ const AppShellMobile: React.FC = () => {
       if (!confirmSwitch) {
         return false;
       }
-      // Here you could add logic to save the current form if needed
     }
-
-    // Open the new form
     setActiveDraftId(newDraftId);
     setViewMode("guided");
     setActivePanel("create");
     setSidebarVisible(false);
     navigate("/flra");
+    console.log("[AppShellMobile] Form opened:", newDraftId);
     return true;
   };
 
@@ -63,26 +63,21 @@ const AppShellMobile: React.FC = () => {
         );
         return;
       }
-
-      // Create a new draft with initial data
       const newDraft = {
         id: `draft_${Date.now()}`,
         generalInfo: {
           title: "New FLRA Form",
-          userId: "", // Will be populated by Supabase
+          userId: "",
         },
         modules: {},
         status: "draft" as const,
         lastModified: new Date().toISOString(),
       };
-
-      // Create form using formService which handles both local and Supabase storage
       const result = await formService.createForm(newDraft);
-
       if (!result.success) {
         throw new Error(result.error);
       }
-
+      console.log("[AppShellMobile] Form created:", newDraft.id);
       await handleFormStateChange(newDraft.id);
     } catch (error) {
       alert("Failed to create new form. Please try again.");

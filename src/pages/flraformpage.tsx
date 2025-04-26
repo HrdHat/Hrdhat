@@ -33,8 +33,8 @@ const FlraFormPage: React.FC<Props> = ({ viewMode, draftId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load user's module configuration
   useEffect(() => {
+    console.log("[FlraFormPage] Loaded");
     const loadUserModules = async () => {
       console.group("Module Loading");
       console.log("Starting to load user modules...");
@@ -97,8 +97,10 @@ const FlraFormPage: React.FC<Props> = ({ viewMode, draftId }) => {
         }
 
         setFormData(result.data);
+        console.log("[FlraFormPage] Form data loaded", result.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
+        console.error("[FlraFormPage] Error loading form data", err);
       } finally {
         setLoading(false);
       }

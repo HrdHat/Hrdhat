@@ -5,6 +5,7 @@ import HomeIcon from "../assets/homeicon.svg";
 import CreateFormIcon from "../assets/newformicon.svg";
 import ActiveFormsIcon from "../assets/activeformicon.svg";
 import HistoryIcon from "../assets/historyicon.svg";
+import { getSupabase } from "../utils/supabase.init";
 
 interface SidebarProps {
   visible: boolean;
@@ -25,8 +26,23 @@ const Sidebar: React.FC<SidebarProps> = ({
   onToggle,
   className, // ✅ Add this
 }) => {
+  const handleLogout = async () => {
+    const supabase = getSupabase();
+    if (supabase) {
+      await supabase.auth.signOut();
+      console.log("[Sidebar] User logged out");
+      window.location.href = "/auth/login";
+    }
+  };
+
   return (
     <aside className={`sidebar ${!visible ? "hidden" : ""} ${className || ""}`}>
+      <button
+        style={{ width: "100%", marginBottom: 16 }}
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
       <button className="sidebar-close-btn" onClick={onToggle}>
         ✕
       </button>

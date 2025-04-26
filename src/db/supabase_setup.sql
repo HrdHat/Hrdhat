@@ -411,16 +411,6 @@ CREATE POLICY "Users can delete own form modules"
     ));
 
 -- Additional Supervisor Policies
-CREATE POLICY "Supervisors can view team profiles"
-    ON public.profiles FOR SELECT
-    USING (
-        EXISTS (
-            SELECT 1 FROM public.profiles p
-            WHERE p.id = profiles.id
-            AND p.supervisor_id = auth.uid()
-        )
-    );
-
 CREATE POLICY "Supervisors can view team forms"
     ON public.forms FOR SELECT
     USING (
