@@ -5,7 +5,7 @@ import HomeIcon from "../assets/homeicon.svg";
 import CreateFormIcon from "../assets/newformicon.svg";
 import ActiveFormsIcon from "../assets/activeformicon.svg";
 import HistoryIcon from "../assets/historyicon.svg";
-import { getSupabase } from "../utils/supabase.init";
+import { supabaseService } from "../services/supabase.service";
 
 interface SidebarProps {
   visible: boolean;
@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   className, // ✅ Add this
 }) => {
   const handleLogout = async () => {
-    const supabase = getSupabase();
+    const supabase = supabaseService.getClient();
     if (supabase) {
       await supabase.auth.signOut();
       console.log("[Sidebar] User logged out");

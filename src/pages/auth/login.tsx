@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSupabase } from "../../utils/supabase.init";
+import { supabaseService } from "../../services/supabase.service";
 
 console.log("[LoginPage] Component rendered");
 
@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   React.useEffect(() => {
     console.log("[LoginPage] Loaded");
-    const supabase = getSupabase();
+    const supabase = supabaseService.getClient();
     if (supabase) {
       supabase.auth.getSession().then(({ data }) => {
         if (data.session) {
@@ -30,7 +30,7 @@ const LoginPage = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("[LoginPage] Login attempt started", { email });
-    const supabase = getSupabase();
+    const supabase = supabaseService.getClient();
     if (!supabase) {
       setError("Supabase is not initialized.");
       console.error("[LoginPage] Supabase is not initialized");

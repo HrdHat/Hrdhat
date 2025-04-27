@@ -1,0 +1,33 @@
+# Supabase Client Audit Checklist
+
+## Confirmed Singleton Usage (Safe)
+- src/services/supabase.service.ts (singleton, only one createClient)
+- src/services/init.service.ts (uses supabaseService)
+- src/pages/auth/login.tsx (uses supabaseService)
+- src/components/auth/ProtectedRoute.tsx (uses supabaseService)
+- src/components/sidebar.tsx (uses supabaseService)
+- src/services/form.service.ts (uses supabaseService)
+- src/services/pdf.service.ts (uses supabaseService)
+- src/services/module.service.ts (uses supabaseService)
+
+## Configuration Only (Safe)
+- src/config/supabase.config.ts (exports config, does not create client)
+- src/types/supabase.ts (types only)
+
+## SQL/Docs (Safe)
+- src/db/supabase_setup.sql (not JS/TS)
+- src/db/dev_seed.sql (not JS/TS)
+- docs/SUPABASE_IMPLEMENTATION_PLAN.md (documentation)
+
+## No Other createClient Calls Found
+- Only src/services/supabase.service.ts calls createClient
+
+## Next Steps
+- [ ] Confirm no dynamic imports or evals create a client
+- [ ] Confirm no browser extensions or test scripts create a client
+- [ ] Confirm no service workers or web workers create a client
+- [ ] Confirm no legacy build artifacts exist
+
+---
+
+**If the warning persists, it may be due to hot module reloading (HMR) in development, or a browser extension.** 

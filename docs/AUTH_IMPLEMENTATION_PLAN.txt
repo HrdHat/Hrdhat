@@ -1,5 +1,25 @@
 LIGHTWEIGHT AUTH IMPLEMENTATION PLAN
 
+---
+
+# Progress Summary (as of latest update)
+
+| Step                | Status    | Notes                                      |
+|---------------------|-----------|--------------------------------------------|
+| Database Setup      | ☑ Done   | Manual user creation required              |
+| Dev Environment     | 🟡 Partial| .env and docs may need update              |
+| Core Auth Setup     | ☑ Done   | Singleton client, session works            |
+| Layout Components   | 🟡 Partial| Sidebar present, AuthLayout not confirmed  |
+| Auth Components     | 🟡 Partial| Login form works, not fully reusable       |
+| Auth Pages          | 🟡 Partial| Login only, no signup/logout page          |
+| Protected Pages     | 🟡 Partial| Main page loads, dashboard not confirmed   |
+| Testing Points      | 🟡 Partial| Login/logout tested, more tests needed     |
+| File Structure      | ☑ OK     | Structure matches plan                     |
+| ENV Variables       | 🟡 Partial| Check .env and docs                        |
+| Success Criteria    | 🟡 Partial| Login works, more testing needed           |
+
+---
+
 1. Database Setup (FIRST)
    ☑ Profiles Table
      - Review current structure
@@ -12,18 +32,18 @@ LIGHTWEIGHT AUTH IMPLEMENTATION PLAN
      - Test policy effectiveness
    
    ☑ Test Data
-     - Create test user in auth.users
+     - Create test user in auth.users (manual via dashboard)
      - Create matching profile
      - Verify data access works
 
 2. Development Environment
-   ☐ Environment Setup (PARTIAL)
+   🟡 Environment Setup (PARTIAL)
      - Set up required ENV variables
        - ⚠️ .env file with Supabase keys and dev credentials needed
      - Configure Supabase URL and keys
      - Add development user credentials
    
-   ☐ Development Utils (PARTIAL)
+   🟡 Development Utils (PARTIAL)
      - ☑ Create SQL setup script
      - ☐ Add development shortcuts (e.g., auto-login, dev-only routes)
      - ☐ Document local setup process (add to README or docs/LOCAL_SETUP.md)
@@ -39,43 +59,43 @@ LIGHTWEIGHT AUTH IMPLEMENTATION PLAN
    [ ] (Optional) Add dev shortcut for auto-login in development mode
 
 3. Core Auth Setup
-   ☐ Supabase Client
+   ☑ Supabase Client
      - Initialize auth client properly
      - Set up session handling
      - Test with development user
    
-   ☐ Auth State Management
+   🟡 Auth State Management
      - Session persistence
      - Token handling
      - Error handling setup
 
 4. Layout Components
-   ☐ AuthLayout (for non-authenticated pages)
+   🟡 AuthLayout (for non-authenticated pages)
      - Clean, minimal layout
      - No sidebar
      - Logo/branding
      - Card layout for auth forms
    
-   ☐ AppLayout (for authenticated pages)
+   🟡 AppLayout (for authenticated pages)
      - Full application layout
      - Sidebar (only visible when authenticated)
      - Header with user info
      - Main content area
 
 5. Auth Components
-   ☐ AuthForm
+   🟡 AuthForm
      - Reusable form component
      - Input validation
      - Error display
      - Loading states
 
-   ☐ ProtectedRoute
+   ☑ ProtectedRoute
      - HOC or middleware
      - Session check
      - Redirect if not authenticated
 
 6. Auth Pages
-   ☐ /auth/login
+   ☑ /auth/login
      - Email/password form
      - Login button
      - Link to signup
@@ -94,32 +114,32 @@ LIGHTWEIGHT AUTH IMPLEMENTATION PLAN
      - Return to login
 
 7. Protected Pages
-   ☐ Home Screen (/dashboard or /)
+   🟡 Home Screen (/dashboard or /)
      - Welcome message with user name
      - Create Form button
      - List of forms (if any)
      - Logout button
 
 8. Testing Points
-   ☐ Database
+   🟡 Database
      - RLS policies work
      - Test user has access
      - Profile creation works
 
-   ☐ Auth Flow
-     - Successful login
+   🟡 Auth Flow
+     - Successful login (tested)
      - Successful signup
      - Failed login handling
      - Failed signup handling
      - Session persistence
      - Logout flow
 
-   ☐ Protected Routes
+   🟡 Protected Routes
      - Redirect when not authenticated
      - Stay when authenticated
      - Session expiry handling
 
-   ☐ Development
+   🟡 Development
      - Test user works
      - Auto-login in dev
      - Profile creation
@@ -185,4 +205,5 @@ NOTES:
 - Minimal UI, can be styled later
 - Just enough for testing other features
 - Test database setup before building UI
-- Verify auth works with test user before adding pages 
+- Verify auth works with test user before adding pages
+- Test users must be created via the Supabase dashboard for now. 

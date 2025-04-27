@@ -1,12 +1,12 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { getSupabase } from "../../utils/supabase.init";
+import { supabaseService } from "../../services/supabase.service";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const [session, setSession] = React.useState<any>(undefined);
 
   React.useEffect(() => {
-    const supabase = getSupabase();
+    const supabase = supabaseService.getClient();
     if (supabase) {
       supabase.auth.getSession().then(({ data }) => {
         setSession(data.session);
