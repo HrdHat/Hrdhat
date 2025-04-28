@@ -1,43 +1,40 @@
-import { StrictMode } from "react";
+import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import { AuthProvider } from "./contexts/AuthContext";
+import { initializeSupabase } from "./utils/supabase.init";
 import "./styles/base.css";
 
-import AppShell from "./layout/appshell";
-import AppShellMobile from "./layout/appshellmobile"; // ✅ Make sure this exists
-import HomePage from "./pages/homepage";
-import FLRAFormPage from "./pages/flraformpage";
-import { initializeSupabase } from "./utils/supabase.init";
-import { useIsMobile } from "./hooks/useismobile";
+// Create root element
+const rootElement = document.getElementById("root");
+if (!rootElement) throw new Error("Failed to find the root element");
+const root = createRoot(rootElement);
 
-// Initialize Supabase in the background
-initializeSupabase().then((success) => {
-  if (success) {
-    console.log("Supabase initialized successfully");
-  } else {
-    console.log("Running in local-only mode");
+// Initialize app
+const initApp = async () => {
+  try {
+    const success = await initializeSupabase();
+    if (!success) {
+      console.warn("[Supabase] Running in local-only mode");
+    } else {
+      console.log("[Supabase] Connection test successful");
+    }
+
+    // Render app
+    root.render(
+      <StrictMode>
+        <AuthProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AuthProvider>
+      </StrictMode>
+    );
+  } catch (error) {
+    console.error("[App] Failed to initialize:", error);
   }
-});
+};
 
-function AppRouter() {
-  const isMobile = useIsMobile();
-
-  const Shell = isMobile ? AppShellMobile : AppShell;
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Shell />}>
-          <Route index element={<HomePage />} />
-          <Route path="flra" element={<FLRAFormPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
-}
-
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <AppRouter />
-  </StrictMode>
-);
+// Start the app
+initApp();

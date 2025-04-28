@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Sidebar from "../components/sidebar";
 import FloatingPanel from "../components/floatingpanel";
@@ -11,7 +11,11 @@ import FlraFormPage from "../pages/flraformpage";
 import { FLRASessionManager } from "../utils/flrasessionmanager";
 import { ViewMode } from "../types/viewmode";
 
-const AppShell: React.FC = () => {
+interface AppShellProps {
+  children?: React.ReactNode;
+}
+
+const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [activePanel, setActivePanel] = useState<
     null | "create" | "activeForms" | "history"
@@ -92,6 +96,10 @@ const AppShell: React.FC = () => {
     setActivePanel(null);
   };
 
+  const handleSettings = () => {
+    navigate("/account-settings");
+  };
+
   return (
     <div className="layout-wrapper">
       {/* Navigation container (Sidebar + FloatingPanel) */}
@@ -110,6 +118,7 @@ const AppShell: React.FC = () => {
           onHome={() => handleFormStateChange(null)}
           onOpenActiveForms={() => openPanel("activeForms")}
           onOpenHistory={() => openPanel("history")}
+          onSettings={handleSettings}
           onToggle={() => {
             setSidebarVisible(false);
             setActivePanel(null);
@@ -156,9 +165,7 @@ const AppShell: React.FC = () => {
             />
           </div>
         ) : (
-          <main className="app-content">
-            <Outlet />
-          </main>
+          <main className="app-content">{children}</main>
         )}
       </div>
     </div>

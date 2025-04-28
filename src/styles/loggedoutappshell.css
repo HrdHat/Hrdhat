@@ -1,0 +1,202 @@
+/* Reset box model */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.logged-out-layout {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #0b0c10;
+  background-image: radial-gradient(
+      circle at top center,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #2c2f36 0px,
+      #2c2f36 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #2c2f36 0px,
+      #2c2f36 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #44474e 0px,
+      #44474e 2px,
+      transparent 2px,
+      transparent 160px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #44474e 0px,
+      #44474e 2px,
+      transparent 2px,
+      transparent 160px
+    );
+}
+
+/* Navigation Region */
+.nav-region {
+  position: absolute;
+  z-index: 600;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+}
+
+.nav-region > * {
+  pointer-events: auto;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  backdrop-filter: blur(8px);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+  z-index: 901;
+}
+
+.sidebar-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.primary {
+  background-color: #2cb75c;
+  color: white;
+}
+
+.nav-link.primary:hover {
+  background-color: #25a050;
+}
+
+/* Content Region */
+.content-region {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin-left: 320px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.logged-out-main {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logged-out-footer {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 2rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+
+  .content-region {
+    margin-left: 0;
+  }
+
+  .sidebar-content {
+    padding: 1.5rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

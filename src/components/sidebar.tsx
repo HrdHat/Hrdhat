@@ -5,6 +5,7 @@ import HomeIcon from "../assets/homeicon.svg";
 import CreateFormIcon from "../assets/newformicon.svg";
 import ActiveFormsIcon from "../assets/activeformicon.svg";
 import HistoryIcon from "../assets/historyicon.svg";
+import SettingsIcon from "../assets/settingsicon.svg";
 
 interface SidebarProps {
   visible: boolean;
@@ -12,6 +13,7 @@ interface SidebarProps {
   onHome: () => void;
   onOpenActiveForms: () => void;
   onOpenHistory: () => void;
+  onSettings: () => void;
   onToggle: () => void;
   className?: string; // ✅ new prop
 }
@@ -22,6 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onHome,
   onOpenActiveForms,
   onOpenHistory,
+  onSettings,
   onToggle,
   className, // ✅ Add this
 }) => {
@@ -46,6 +49,10 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="nav-item" onClick={onOpenHistory}>
           <img src={HistoryIcon} alt="History" className="nav-icon" />
           <span>History</span>
+        </div>
+        <div className="nav-item" onClick={onSettings}>
+          <img src={SettingsIcon} alt="Settings" className="nav-icon" />
+          <span>Settings</span>
         </div>
       </nav>
     </aside>

@@ -31,20 +31,40 @@ export class ErrorHandlingService {
       retry: context.retry ?? false,
     });
 
+    // Enhanced error logging
+    console.error("[Error] Application error:", {
+      id: errorId,
+      type: context.type,
+      severity: context.severity,
+      operation: context.operation,
+      retry: context.retry,
+      error:
+        error instanceof Error
+          ? {
+              message: error.message,
+              stack: error.stack,
+              name: error.name,
+            }
+          : String(error),
+      timestamp: new Date().toISOString(),
+    });
+
     if (context.retry) {
       const retryCount = this.retryQueue.get(errorId) || 0;
       if (retryCount < 3) {
         this.retryQueue.set(errorId, retryCount + 1);
+        console.log(
+          `[Error] Retrying operation ${context.operation} (attempt ${
+            retryCount + 1
+          }/3)`
+        );
         // Implement retry logic here
+      } else {
+        console.error(
+          `[Error] Max retries reached for operation ${context.operation}`
+        );
       }
     }
-
-    // Log error for debugging
-    console.error("Application error:", {
-      id: errorId,
-      context,
-      error: error instanceof Error ? error.message : String(error),
-    });
   }
 
   getActiveErrors(): AppError[] {

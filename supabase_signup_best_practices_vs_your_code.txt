@@ -1,0 +1,109 @@
+# Supabase Auth Signup: Best Practices vs. Your Code
+
+## 1. Best Practice: Signup Flow
+
+- User submits signup form (email, password, optional metadata).
+- Frontend calls `supabase.auth.signUp({ email, password, options: { data: { ... } } })`.
+- Supabase creates a new user in `auth.users`.
+- (Optional) A trigger creates a row in `public.profiles` for the new user.
+- User receives a confirmation email (if enabled).
+- User confirms email, can now log in.
+- Frontend does NOT insert into `profiles` directly.
+
+---
+
+## 2. Your Code: Signup Flow (as of latest review)
+
+- User submits signup form (email, password, full name).
+- `signUp` in `AuthContext.tsx` calls:
+
+  ```ts
+  const { error: signUpError } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { data: { full_name: fullName } }
+  });
+  if (signUpError) throw signUpError;
+  // No manual insert into profiles (correct)
+  ```
+- Supabase creates a new user in `auth.users`.
+- Your database trigger creates a row in `public.profiles` for the new user (using metadata for `full_name`).
+- User receives a confirmation email (if enabled).
+- User confirms email, can now log in.
+- **No direct insert into `profiles` from frontend (correct).**
+
+---
+
+## 3. Best Practice: RLS and Triggers
+
+- RLS on `profiles` allows:
+  - Inserts where `auth.uid() = id` (user creates their own profile)
+  - Inserts where `auth.uid() IS NULL` (trigger context)
+- Trigger on `auth.users` automatically creates a `profiles` row after signup.
+- No duplicate or orphaned rows in `profiles` or `auth.users`.
+
+---
+
+## 4. Your Code: RLS and Triggers
+
+- RLS policy on `profiles`:
+  ```sql
+  create policy "Allow inserts for self or trigger"
+    on public.profiles for insert
+    with check (auth.uid() = id OR auth.uid() IS NULL);
+  ```
+- Trigger function `handle_new_user` creates a `profiles` row after signup.
+- No manual insert from frontend (now correct).
+
+---
+
+## 5. Best Practice: Error Handling
+
+- Show user-friendly error messages for signup/login issues.
+- Log errors to the console for debugging.
+- Prevent double submission of signup form (disable button while loading).
+
+---
+
+## 6. Your Code: Error Handling
+
+- Uses `getSignUpErrorMessage` and `getLoginErrorMessage` for user-friendly errors.
+- Logs errors to the console.
+- Disables submit button while loading (prevents double submission).
+
+---
+
+## 7. Best Practice: Clean State for Testing
+
+- Delete all users and profiles before testing new signups.
+- Use a brand new email for each test.
+- Hard refresh browser to clear cookies/local storage.
+
+---
+
+## 8. Your Code: Clean State
+
+- You have deleted all users and profiles before testing.
+- You are using new emails for each test.
+- (If not, do a hard refresh to clear browser state.)
+
+---
+
+## 9. Issues Noted in Your Code/Flow
+
+- Previously, you had a manual insert into `profiles` (now removed).
+- If you see duplicate users in `auth.users`, it may be due to double submission or delayed deletion.
+- If you see RLS errors, it was due to the manual insert (now fixed).
+- If you see no user in `auth.users` after signup, the signup failed (check network tab and error messages).
+
+---
+
+## 10. Summary
+
+- Your code now matches best practices for Supabase Auth signup and profile creation.
+- If you follow the clean state steps and use a new email, signup should work and create both an Auth user and a profile row.
+- If you see any issues, check the network tab, error messages, and Supabase dashboard for clues.
+
+---
+
+**If you want a minimal working example or further debugging, let me know!** 
