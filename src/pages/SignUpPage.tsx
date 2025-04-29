@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "../styles/auth.css";
 import { getSignUpErrorMessage } from "../utils/authErrorMessages";
+import GoogleIcon from "../assets/icons8-google.svg";
+import AppleIcon from "../assets/apple-14.svg";
 
 interface SignUpPageProps {
   sidebarMode?: boolean;
@@ -53,52 +55,66 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ sidebarMode }) => {
       {error && <div className="auth-error">{error}</div>}
 
       <form onSubmit={handleSubmit} className="auth-form">
-        <div className="form-group">
-          <label htmlFor="fullName">Full Name</label>
+        <div
+          className={`form-group floating-label${
+            fullName ? " has-content" : ""
+          }`}
+        >
           <input
             id="fullName"
             type="text"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
-            placeholder="Enter your full name"
+            autoComplete="name"
           />
+          <label htmlFor="fullName">Full Name</label>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
+        <div
+          className={`form-group floating-label${email ? " has-content" : ""}`}
+        >
           <input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            placeholder="Enter your email"
+            autoComplete="username"
           />
+          <label htmlFor="email">Email</label>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
+        <div
+          className={`form-group floating-label${
+            password ? " has-content" : ""
+          }`}
+        >
           <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            placeholder="Create a password"
+            autoComplete="new-password"
           />
+          <label htmlFor="password">Password</label>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+        <div
+          className={`form-group floating-label${
+            confirmPassword ? " has-content" : ""
+          }`}
+        >
           <input
             id="confirmPassword"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            placeholder="Confirm your password"
+            autoComplete="new-password"
           />
+          <label htmlFor="confirmPassword">Confirm Password</label>
         </div>
 
         <button type="submit" className="auth-button" disabled={loading}>
@@ -112,12 +128,12 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ sidebarMode }) => {
 
       <div className="social-login">
         <button className="social-button google">
-          <img src="/google-icon.svg" alt="Google" />
+          <img src={GoogleIcon} alt="Google" className="auth-icon" />
           Continue with Google
         </button>
-        <button className="social-button github">
-          <img src="/github-icon.svg" alt="GitHub" />
-          Continue with GitHub
+        <button className="social-button apple">
+          <img src={AppleIcon} alt="Apple" className="auth-icon" />
+          Continue with Apple
         </button>
       </div>
 

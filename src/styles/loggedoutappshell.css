@@ -75,7 +75,7 @@
 }
 
 .sidebar-content {
-  padding: 2rem;
+  padding: 0.85rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -193,7 +193,7 @@
   }
 
   .sidebar-content {
-    padding: 1.5rem;
+    padding: 0.65rem;
   }
 
   .footer-content {

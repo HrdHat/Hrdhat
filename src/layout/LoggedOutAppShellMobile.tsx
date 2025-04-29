@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import "../styles/loggedoutappshell.css";
 
 const LoggedOutAppShellMobile: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const location = useLocation();
+
+  useEffect(() => {
+    setIsMenuOpen(true);
+  }, []);
 
   let sidebarContent;
   if (location.pathname === "/login") {

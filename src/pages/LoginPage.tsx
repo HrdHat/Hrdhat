@@ -75,28 +75,34 @@ const LoginPage: React.FC<LoginPageProps> = ({ sidebarMode }) => {
       {error && <div className="auth-error">{error}</div>}
 
       <form onSubmit={handleSubmit} className="auth-form">
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
+        <div
+          className={`form-group floating-label${email ? " has-content" : ""}`}
+        >
           <input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            placeholder="Enter your email"
+            autoComplete="username"
           />
+          <label htmlFor="email">Email</label>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
+        <div
+          className={`form-group floating-label${
+            password ? " has-content" : ""
+          }`}
+        >
           <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            placeholder="Enter your password"
+            autoComplete="current-password"
           />
+          <label htmlFor="password">Password</label>
         </div>
 
         <button type="submit" className="auth-button" disabled={loading}>
