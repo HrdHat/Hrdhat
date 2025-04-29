@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import "../styles/loggedoutappshell.css";
+import Logo from "../assets/logo/HRDHAT LOGO & ICONT XL.svg";
 
 interface LoggedOutAppShellProps {
   children?: React.ReactNode;
@@ -44,22 +45,13 @@ const LoggedOutAppShell: React.FC<LoggedOutAppShellProps> = () => {
       <div className="content-region">
         <main className="logged-out-main">
           <div className="welcome-message">
-            Welcome to HRDHAT.
-            <br />
-            <span style={{ color: "#2cb75c", fontWeight: 600 }}>
-              Sign in{" "}
-              <span style={{ fontSize: "2rem", verticalAlign: "middle" }}>
-                ←
-              </span>{" "}
-              in the Sidebar.
-            </span>
+            <img src={Logo} alt="HRDHAT" className="welcome-logo" />
+            <p>Sign in or create an account to start your FLRA.</p>
           </div>
         </main>
         <footer className="logged-out-footer">
           <div className="footer-content">
-            <p>
-              &copy; {new Date().getFullYear()} HRDHAT. All rights reserved.
-            </p>
+            <p>© {new Date().getFullYear()} HRDHAT. All rights reserved.</p>
             <div className="footer-links">
               <Link to="/privacy">Privacy Policy</Link>
               <Link to="/terms">Terms of Service</Link>

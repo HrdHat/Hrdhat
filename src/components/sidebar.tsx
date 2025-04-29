@@ -1,4 +1,6 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import "../styles/sidebar.css";
 import "../styles/floatingpanel.css"; // styles for the floating panel
 import HomeIcon from "../assets/homeicon.svg";
@@ -28,6 +30,13 @@ const Sidebar: React.FC<SidebarProps> = ({
   onToggle,
   className, // ✅ Add this
 }) => {
+  const location = useLocation();
+  const { signOut } = useAuth();
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
     <aside className={`sidebar ${!visible ? "hidden" : ""} ${className || ""}`}>
       <button className="sidebar-close-btn" onClick={onToggle}>
@@ -55,6 +64,14 @@ const Sidebar: React.FC<SidebarProps> = ({
           <span>Settings</span>
         </div>
       </nav>
+      <div className="sidebar-bottom">
+        <button
+          onClick={() => signOut()}
+          className="sidebar-item logout-button"
+        >
+          Logout
+        </button>
+      </div>
     </aside>
   );
 };

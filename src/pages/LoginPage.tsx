@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "../styles/auth.css";
 import { getLoginErrorMessage } from "../utils/authErrorMessages";
+import GoogleIcon from "../assets/icons8-google.svg";
+import AppleIcon from "../assets/apple-14.svg";
 
 interface LoginPageProps {
   sidebarMode?: boolean;
@@ -13,7 +15,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ sidebarMode }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
+  const { signIn, signInWithGoogle, signInWithApple } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,6 +34,34 @@ const LoginPage: React.FC<LoginPageProps> = ({ sidebarMode }) => {
         console.error("Login error (unknown):", err);
         setError("An error occurred during sign in");
       }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setError("");
+      setLoading(true);
+      await signInWithGoogle();
+      navigate("/");
+    } catch (err) {
+      setError("Failed to sign in with Google");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAppleSignIn = async () => {
+    try {
+      setError("");
+      setLoading(true);
+      await signInWithApple();
+      navigate("/");
+    } catch (err) {
+      setError("Failed to sign in with Apple");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -79,13 +109,21 @@ const LoginPage: React.FC<LoginPageProps> = ({ sidebarMode }) => {
       </div>
 
       <div className="social-login">
-        <button className="social-button google">
-          <img src="/google-icon.svg" alt="Google" />
+        <button
+          onClick={handleGoogleSignIn}
+          disabled={loading}
+          className="social-button google"
+        >
+          <img src={GoogleIcon} alt="Google" className="auth-icon" />
           Continue with Google
         </button>
-        <button className="social-button github">
-          <img src="/github-icon.svg" alt="GitHub" />
-          Continue with GitHub
+        <button
+          onClick={handleAppleSignIn}
+          disabled={loading}
+          className="social-button apple"
+        >
+          <img src={AppleIcon} alt="Apple" className="auth-icon" />
+          Continue with Apple
         </button>
       </div>
 

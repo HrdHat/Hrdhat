@@ -30,7 +30,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ sidebarMode }) => {
     setLoading(true);
 
     try {
-      await signUp(email, password, fullName);
+      await signUp(email, password, { full_name: fullName });
       navigate("/");
     } catch (err) {
       if (err instanceof Error) {

@@ -14,25 +14,6 @@ const root = createRoot(rootElement);
 // Initialize app
 const initApp = async () => {
   try {
-    // Wait for stylesheets to load
-    await Promise.all(
-      Array.from(document.styleSheets).map(
-        (styleSheet) =>
-          new Promise((resolve) => {
-            if (styleSheet.href) {
-              const link = document.createElement("link");
-              link.href = styleSheet.href;
-              link.rel = "stylesheet";
-              link.onload = () => resolve(true);
-              link.onerror = () => resolve(false);
-              document.head.appendChild(link);
-            } else {
-              resolve(true);
-            }
-          })
-      )
-    );
-
     const success = await initializeSupabase();
     if (!success) {
       console.warn("[Supabase] Running in local-only mode");

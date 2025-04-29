@@ -8,7 +8,6 @@ import FlraForm from "./pages/flraformpage";
 import NotFound from "./pages/NotFoundPage";
 import AppShell from "./layout/appshell";
 import LoggedOutAppShell from "./layout/LoggedOutAppShell";
-import { useEffect, useState } from "react";
 
 // Temporary placeholder components
 const ActiveForms = () => <div>Active Forms Page (Coming Soon)</div>;
@@ -21,25 +20,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 function App() {
-  const [isStylesLoaded, setIsStylesLoaded] = useState(false);
-
-  useEffect(() => {
-    // Check if all stylesheets are loaded
-    const styleSheets = Array.from(document.styleSheets);
-    const isLoaded = styleSheets.every((sheet) => {
-      try {
-        return sheet.cssRules.length > 0;
-      } catch (e) {
-        return false; // CORS or other error, stylesheet not loaded
-      }
-    });
-    setIsStylesLoaded(isLoaded);
-  }, []);
-
-  if (!isStylesLoaded) {
-    return <div style={{ display: "none" }}>Loading...</div>;
-  }
-
   return (
     <div className="app">
       <Routes>

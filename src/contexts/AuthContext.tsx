@@ -7,17 +7,29 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, fullName: string) => Promise<void>;
+  signUp: (
+    email: string,
+    password: string,
+    metadata?: { full_name?: string; logo_url?: string }
+  ) => Promise<void>;
   signOut: () => Promise<void>;
   updateProfile: (data: {
     full_name?: string;
-    company?: string;
-    position_title?: string;
     logo_url?: string;
   }) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  signInWithApple: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -28,143 +40,135 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const supabase = getSupabase();
+    if (!supabase) return;
 
-    // If Supabase is not initialized, set loading to false and return
-    if (!supabase) {
-      console.log("Supabase not initialized, defaulting to logged-out state");
-      setLoading(false);
-      return;
-    }
+    // Set initial session and user
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
 
-    // Get initial session
-    supabase.auth
-      .getSession()
-      .then(({ data: { session } }) => {
-        console.log(
-          "Initial session check:",
-          session ? "Session found" : "No session"
-        );
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error getting session:", error);
-        setLoading(false);
-      });
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+
+    setLoading(false);
 
     // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      console.log("Auth state changed:", _event);
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    console.log("[Auth] Starting login process for:", email);
     const supabase = getSupabase();
-    if (!supabase) {
-      console.error("[Auth] Supabase not initialized");
-      throw new Error("Supabase not initialized");
-    }
+    if (!supabase) throw new Error("Supabase not initialized");
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-    if (error) {
-      console.error("[Auth] Login error:", error);
-      throw error;
-    }
-    console.log("[Auth] Login successful for:", email);
+
+    if (error) throw error;
   };
 
-  const signUp = async (email: string, password: string, fullName: string) => {
-    console.log("[Auth] Starting signup process for:", email);
-    const supabase = getSupabase();
-    if (!supabase) {
-      console.error("[Auth] Supabase not initialized");
-      throw new Error("Supabase not initialized");
+  const signUp = async (
+    email: string,
+    password: string,
+    metadata?: {
+      full_name?: string;
+      logo_url?: string;
     }
+  ) => {
+    const supabase = getSupabase();
+    if (!supabase) throw new Error("Supabase not initialized");
 
-    const { error: signUpError } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: { full_name: fullName },
+        data: metadata,
       },
     });
-    if (signUpError) {
-      console.error("[Auth] Signup error:", signUpError);
-      throw signUpError;
-    }
-    console.log("[Auth] Signup successful for:", email);
+
+    if (error) throw error;
   };
 
   const signOut = async () => {
-    console.log("[Auth] Starting signout process");
     const supabase = getSupabase();
-    if (!supabase) {
-      console.error("[Auth] Supabase not initialized");
-      throw new Error("Supabase not initialized");
-    }
+    if (!supabase) throw new Error("Supabase not initialized");
 
     const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("[Auth] Signout error:", error);
-      throw error;
-    }
-    console.log("[Auth] Signout successful");
+    if (error) throw error;
   };
 
   const updateProfile = async (data: {
     full_name?: string;
-    company?: string;
-    position_title?: string;
     logo_url?: string;
   }) => {
-    console.log("[Profile] Starting profile update for user:", user?.id);
     const supabase = getSupabase();
-    if (!supabase) {
-      console.error("[Profile] Supabase not initialized");
-      throw new Error("Supabase not initialized");
-    }
-    if (!user) {
-      console.error("[Profile] No user logged in");
-      throw new Error("No user logged in");
-    }
+    if (!supabase) throw new Error("Supabase not initialized");
+    if (!user) throw new Error("No user logged in");
 
-    const { error } = await supabase
-      .from("profiles")
-      .update(data)
-      .eq("id", user.id);
+    const { error } = await supabase.auth.updateUser({
+      data: {
+        full_name: data.full_name,
+        logo_url: data.logo_url,
+      },
+    });
 
-    if (error) {
-      console.error("[Profile] Update error:", error);
-      throw error;
-    }
+    if (error) throw error;
     console.log("[Profile] Update successful for user:", user.id);
+  };
+
+  const signInWithGoogle = async () => {
+    const supabase = getSupabase();
+    if (!supabase) throw new Error("Supabase not initialized");
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    if (error) throw error;
+  };
+
+  const signInWithApple = async () => {
+    const supabase = getSupabase();
+    if (!supabase) throw new Error("Supabase not initialized");
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "apple",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    if (error) throw error;
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, session, loading, signIn, signUp, signOut, updateProfile }}
+      value={{
+        user,
+        session,
+        loading,
+        signIn,
+        signUp,
+        signOut,
+        updateProfile,
+        signInWithGoogle,
+        signInWithApple,
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
 };
